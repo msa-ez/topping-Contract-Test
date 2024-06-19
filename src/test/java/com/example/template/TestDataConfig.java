@@ -1,3 +1,6 @@
+path: src/test/java/com/example/template
+except: {{#attached "Event" this}}{{#incomingRelations}}{{#source}}{{#checkIncoming examples}}{{/checkIncoming}}{{/source}}{{/incomingRelations}}{{/attached}}
+---
 package com.example.template;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -25,3 +28,9 @@ public class TestDataConfig {
         };
     }
 }
+
+<function>
+    window.$HandleBars.registerHelper('checkIncoming', function (examples) {
+        if(!examples) return true;
+    })
+</function>
