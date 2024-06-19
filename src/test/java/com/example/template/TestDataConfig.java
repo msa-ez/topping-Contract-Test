@@ -22,6 +22,11 @@ public class TestDataConfig {
             {{#incomingRelations}}
             {{#source}}
             {{#examples}}
+            {{#then}}
+            {{#each value}}
+            {{@key}}{{this}}
+            {{/each}}
+            {{/then}}
             {{/examples}}
             {{/source}}
             {{/incomingRelations}}
