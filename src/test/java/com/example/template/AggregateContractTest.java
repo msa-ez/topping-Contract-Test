@@ -1,6 +1,7 @@
 forEach: Aggregate
-fileName: {{namePascalCase}}ContractTest.java
+fileName: {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}ContractTest.java
 path: src/test/java/com/example/template
+except: {{#attached "Event" this}}{{#checkOutgoingRelations outgoingRelations}}{{/checkOutgoingRelations}}{{/attached}}
 ---
 package com.example.template;
 
@@ -27,9 +28,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, 
-                         ids = "com.example:{{namePlural}}:+:stubs:8090")
+                         ids = "com.example:{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePlural}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}:+:stubs:8090")
 @ActiveProfiles("test")                      
-public class {{namePascalCase}}ContractTest {
+public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}ContractTest {
 
    @Autowired
    MockMvc mockMvc;
@@ -38,7 +39,7 @@ public class {{namePascalCase}}ContractTest {
     public void getProduct_stub_test() throws Exception {
 
         MvcResult result = mockMvc
-        .perform(MockMvcRequestBuilders.get("/order/validateProduct/1")
+        .perform(MockMvcRequestBuilders.get("/{{nameCamelCase}}/validate{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}/1")
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
@@ -55,3 +56,9 @@ public class {{namePascalCase}}ContractTest {
     }
 
 }
+
+<function>
+    window.$HandleBars.registerHelper('checkOutgoingRelations', function (relation) {
+        if(!relation) return true;
+    })
+</function>
