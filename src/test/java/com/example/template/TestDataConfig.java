@@ -24,7 +24,7 @@ public class TestDataConfig {
             {{#examples}}
             {{#then}}
             {{#each value}}
-            {{#compare @key this ../../../../../../aggregateRoot.fieldDescriptors}}
+            {{#compare @key this ../../../../../../aggregateRoot.fieldDescriptors}}{{/compare}}
             {{/each}}
             {{/then}}
             {{/examples}}
