@@ -1,6 +1,6 @@
 forEach: Aggregate
 fileName:{{nameCamelCase}}Get.groovy
-Exception:
+Exception:{{#attached "Event" this}}{{#checkOutgoingRelations outgoingRelations}}{{/attached}}
 ---
 
 
@@ -9,7 +9,7 @@ package contracts.rest
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method 'GET'
-        url ('/product/1')
+        url ('/{{nameCamelCase}}/1')
         headers {
             contentType(applicationJson())
         }
@@ -37,4 +37,8 @@ org.springframework.cloud.contract.spec.Contract.make {
 }
 
 <function>
+    window.$HandleBars.registerHelper('checkOutgoingRelations', function (relation) {
+        if(!relations) return true;
+    })
+
 </function>
