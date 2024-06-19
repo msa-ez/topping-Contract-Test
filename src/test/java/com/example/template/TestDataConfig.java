@@ -24,8 +24,7 @@ public class TestDataConfig {
             {{#examples}}
             {{#then}}
             {{#each value}}
-            {{../../../../../../nameCamelCase}}
-            {{@key}}{{this}}
+            {{#compare @key this ../../../../../../aggregateRoot.fieldDescriptors}}
             {{/each}}
             {{/then}}
             {{/examples}}
@@ -41,5 +40,9 @@ public class TestDataConfig {
 <function>
     window.$HandleBars.registerHelper('checkIncoming', function (examples) {
         if(!examples) return true;
+    })
+
+    window.$HandleBars.registerHelper('compare', function (type, value, field) {
+        console.log(type, value, field)
     })
 </function>
