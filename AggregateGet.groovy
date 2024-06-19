@@ -1,6 +1,6 @@
 forEach: Aggregate
-fileName:{{nameCamelCase}}Get.groovy
-except:{{#attached "Event" this}}{{#checkOutgoingRelations outgoingRelations}}{{/checkOutgoingRelations}}{{/attached}}
+fileName: {{nameCamelCase}}Get.groovy
+except: {{#attached "Event" this}}{{#checkOutgoingRelations outgoingRelations}}{{/checkOutgoingRelations}}{{/attached}}
 ---
 package contracts.rest
 

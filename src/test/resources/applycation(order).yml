@@ -1,8 +1,11 @@
+path: src/test/resources
+except: {{#attached "Event" this}}{{#checkOutgoingRelations outgoingRelations}}{{/checkOutgoingRelations}}{{/attached}}
+---
 server:
   port: 8080
 
-## 주문은 product 정보가 필요하다.
-## checkStock 를 true 로 준다면, product 서비스가 죽어있을때는 주문이 안된다.
+## {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}} 정보가 필요하다.
+## checkStock 를 true 로 준다면, {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}} 서비스가 죽어있을때는 주문이 안된다.
 checkStock: true
 ---
 spring:
@@ -23,7 +26,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: orders
+          group: {{#aggregates}}{{namePlural}}{{/aggregates}}
           destination: eventTopicDocker
           contentType: application/json
         event-out:
@@ -32,4 +35,10 @@ spring:
 
 api:
   url:
-    product: "http://localhost:8090"
+    {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}: "http://localhost:8090"
+
+<function>
+    window.$HandleBars.registerHelper('checkOutgoingRelations', function (relation) {
+        if(!relation) return true;
+    })
+</function>
