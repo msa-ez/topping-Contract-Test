@@ -1,3 +1,8 @@
+forEach: Aggregate
+fileName: {{namePascalCase}}Conrtoller.java
+path: src/main/java/com/eventstorming/infra
+except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
+---
 package com.example.template;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,3 +41,9 @@ public class OrderController {
     }
     
 }
+---
+<function>
+    window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
+        if(!relation) return true;
+    })
+</function>
