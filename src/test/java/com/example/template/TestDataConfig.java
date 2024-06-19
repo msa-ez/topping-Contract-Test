@@ -41,15 +41,4 @@ public class TestDataConfig {
     window.$HandleBars.registerHelper('checkIncoming', function (examples) {
         if(!examples) return true;
     })
-
-    var givenField = []
-    for(var i = 0; i < this.aggregateList.length; i++){
-        givenField = this.aggregateList[0].aggregateRoot.fieldDescriptors;
-    }
-    if(this.incomingRelations){
-        var whenField = this.incomingRelations[0].source.fieldDescriptors;
-    }
-    if(this.outgoingRelations){
-        var thenField = this.outgoingRelations[0].target.fieldDescriptors;
-    }
 </function>
