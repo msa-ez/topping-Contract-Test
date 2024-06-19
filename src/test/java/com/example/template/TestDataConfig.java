@@ -24,7 +24,7 @@ public class TestDataConfig {
             {{#examples}}
             {{#then}}
             {{#each value}}
-            {{#compare @key this ../../../../../../aggregateRoot.fieldDescriptors}}{{/compare}}
+            {{../../../../../../nameCamelCase}}.set{{pascalCase @key}}({{#compare @key this ../../../../../../aggregateRoot.fieldDescriptors}}{{/compare}})
             {{/each}}
             {{/then}}
             {{/examples}}
@@ -42,7 +42,24 @@ public class TestDataConfig {
         if(!examples) return true;
     })
 
-    window.$HandleBars.registerHelper('compare', function (type, value, field) {
-        console.log(type, value, field)
+    window.$HandleBars.registerHelper('compare', function (key, value, field) {
+        var type = 'String'
+        for(var i = 0; i < field.length; i++){
+            if(field[i].name == key){
+                type = field[i].className
+            }
+        }
+        switch (type) {
+            case 'String':
+                return `"${value}"`; // Java에서 문자열은 큰따옴표를 사용합니다.
+            case 'Long':
+                return `${value}L`;
+            case 'Integer':
+                return `${value}`;
+            case 'Boolean':
+            return value.toString();
+            default:
+            throw new Error(`Unsupported type: ${type}`);
+        }
     })
 </function>
