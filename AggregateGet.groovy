@@ -2,8 +2,6 @@ forEach: Aggregate
 fileName:{{nameCamelCase}}Get.groovy
 Exception:{{#attached "Event" this}}{{#checkOutgoingRelations outgoingRelations}}{{/checkOutgoingRelations}}{{/attached}}
 ---
-
-
 package contracts.rest
 
 org.springframework.cloud.contract.spec.Contract.make {
@@ -40,5 +38,4 @@ org.springframework.cloud.contract.spec.Contract.make {
     window.$HandleBars.registerHelper('checkOutgoingRelations', function (relation) {
         if(!relation) return true;
     })
-
 </function>
