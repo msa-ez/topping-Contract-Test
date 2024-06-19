@@ -1,4 +1,4 @@
-path: {{name}}/{{{options.packagePath}}}/resources
+path: {{name}}/src/main/resources
 ---
 server:
   port: 8080
