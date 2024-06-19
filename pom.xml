@@ -77,7 +77,6 @@
 			<scope>test</scope>
 		</dependency>	
 		{{/if}}
-		{{#attached "Event" this}}
 		{{#incomingRelations}}
 		{{#source}}
 		{{#if examples}}
@@ -91,7 +90,6 @@
 		{{/if}}
 		{{/source}}
 		{{/incomingRelations}}
-		{{/attached}}
 		{{/attached}}
 	</dependencies>
 
