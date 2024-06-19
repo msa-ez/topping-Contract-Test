@@ -1,3 +1,5 @@
+path: {{boundedContext.name}}/{{{options.packagePath}}}/resources
+---
 server:
   port: 8080
 
@@ -48,7 +50,7 @@ logging:
 
 api:
   url:
-    {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{boundedContext.portGenerated}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}: http://localhost:8085
+    {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}: http://localhost:{{boundedContext.portGenerated}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}
 
 server:
   port: {{portGenerated}}
