@@ -24,13 +24,17 @@ public class {{namePascalCase}}Controller {
     {{#outgoingRelations}}
     {{#target}}
     {{#attached "Aggregate" this}}
-    @Value("${api.url.{#wrapRight nameCamelCase}}{{/wrapRight}}")
+    @Value("${api.url.{{#wrapRight nameCamelCase}}{{/wrapRight}}")
     private String apiUrl;
+    {{/attached}}
+    {{/target}}
+    {{/outgoingRelations}}
+    {{/attached}}
 
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/order/validate{{namePascalCase}}/{{#wrapLeft nameCamelCase}}{{/wrapLeft}}Id}")
+    @GetMapping("/{{nameCamelCase}}/validate{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}/{{#wrapLeft nameCamelCase}}{{/wrapLeft}}Id}")
     public ResponseEntity<String> {{nameCamelCase}}StockCheck(@PathVariable(value = "{{nameCamelCase}}Id") Long {{nameCamelCase}}Id) {
     
         String {{nameCamelCase}}Url = apiUrl + "/{{nameCamelCase}}/" + {{nameCamelCase}}Id;
