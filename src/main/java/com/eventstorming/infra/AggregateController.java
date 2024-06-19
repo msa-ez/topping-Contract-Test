@@ -3,7 +3,7 @@ fileName: {{namePascalCase}}Conrtoller.java
 path: {{boundedContext.name}}/{{{options.packagePath}}}/infra
 except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
 ---
-package com.example.template;
+package {{options.package}}.infra;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,26 +20,33 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class {{namePascalCase}}Controller {
 
-    @Value("${api.url.product}")
+    {{#attached "Event" this}}
+    {{#outgoingRelations}}
+    {{#target}}
+    {{#attached "Aggregate" this}}
+    @Value("${api.url.{{nameCamelCase}}")
     private String apiUrl;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/order/validateProduct/{productId}")
-    public ResponseEntity<String> productStockCheck(@PathVariable(value = "productId") Long productId) {
+    @GetMapping("/order/validate{{namePascalCase}}/{productId}")
+    public ResponseEntity<String> {{nameCamelCase}}StockCheck(@PathVariable(value = "productId") Long productId) {
     
-        String productUrl = apiUrl + "/product/" + productId;
+        String {{nameCamelCase}}Url = apiUrl + "/{{nameCamelCase}}/" + productId;
     
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
     
-        ResponseEntity<String> productEntity = restTemplate.exchange(productUrl, HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> {{nameCamelCase}}Entity = restTemplate.exchange({{nameCamelCase}}Url, HttpMethod.GET, entity, String.class);
     
-        return productEntity;
+        return {{nameCamelCase}}Entity;
     }
-    
+    {{/attached}}
+    {{/target}}
+    {{/outgoingRelations}}
+    {{/attached}}
 }
 ---
 <function>
