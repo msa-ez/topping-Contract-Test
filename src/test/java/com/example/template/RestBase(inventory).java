@@ -1,6 +1,6 @@
 forEach: Aggregate
 path: src/test/java/com/example/template
-except: {{#attached "Event" this}}{{#incomingRelations}}{{#source}}{{#checkIncoming examples}}{{/source}}{{/incomingRelations}}{{/attached}}
+except: {{#attached "Event" this}}{{#incomingRelations}}{{#source}}{{#checkIncoming examples}}{{/checkIncoming}}{{/source}}{{/incomingRelations}}{{/attached}}
 ---
 package com.example.template;
 
