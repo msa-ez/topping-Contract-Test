@@ -61,10 +61,9 @@
 			<version>${spring-cloud.version}</version>				
 			<scope>test</scope>
 		</dependency-->
-
-		<!-- Client Sdie Contract dependencies  -->
 		{{#attached "Event" this}}
 		{{#if outgoingRelations}}
+		<!-- Client Sdie Contract dependencies  -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-contract-wiremock</artifactId>
@@ -78,7 +77,8 @@
 			<scope>test</scope>
 		</dependency>	
 		{{/if}}
-		{{#if imcomingRelations}}
+		{{#if incomingRelations}}
+		<!-- Producer Sdie Contract dependencies  -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
@@ -107,7 +107,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			{{#if imcomingRelations}}
+			{{#if incomingRelations}}
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
