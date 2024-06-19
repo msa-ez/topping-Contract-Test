@@ -107,6 +107,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			{{#attached "Event" this}}
 			{{#if incomingRelations}}
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
@@ -120,6 +121,7 @@
 				</configuration>
 			</plugin>
 			{{/if}}
+			{{/attached}}
 		</plugins>
 		
 	</build>
