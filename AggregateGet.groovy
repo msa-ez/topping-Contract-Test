@@ -38,7 +38,7 @@ org.springframework.cloud.contract.spec.Contract.make {
 
 <function>
     window.$HandleBars.registerHelper('checkOutgoingRelations', function (relation) {
-        if(!relations) return true;
+        if(!relation) return true;
     })
 
 </function>
