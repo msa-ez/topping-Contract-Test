@@ -1,5 +1,6 @@
 forEach: Aggregate
 path: src/test/java/com/example/template
+except: {{#attached "Event" this}}{{#incomingRelations}}{{#source}}{{#checkIncoming examples}}{{/source}}{{/incomingRelations}}{{/attached}}
 ---
 package com.example.template;
 
@@ -30,4 +31,7 @@ public class RestBase {
     }
 }
 <function>
+    window.$HandleBars.registerHelper('checkIncoming', function (examples) {
+        if(!examples) return true;
+    })
 </function>

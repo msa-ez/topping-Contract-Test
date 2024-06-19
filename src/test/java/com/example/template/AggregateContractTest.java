@@ -1,7 +1,7 @@
 forEach: Aggregate
 fileName: {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}ContractTest.java
 path: src/test/java/com/example/template
-except: {{#attached "Event" this}}{{#checkOutgoingRelations outgoingRelations}}{{/checkOutgoingRelations}}{{/attached}}
+except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
 ---
 package com.example.template;
 
@@ -58,7 +58,7 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkOutgoingRelations', function (relation) {
+    window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
         if(!relation) return true;
     })
 </function>

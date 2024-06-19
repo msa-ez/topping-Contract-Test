@@ -1,5 +1,5 @@
 path: src/test/resources
-except: {{#attached "Event" this}}{{#checkOutgoingRelations outgoingRelations}}{{/checkOutgoingRelations}}{{/attached}}
+except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
 ---
 server:
   port: 8080
@@ -38,7 +38,7 @@ api:
     {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}: "http://localhost:8090"
 
 <function>
-    window.$HandleBars.registerHelper('checkOutgoingRelations', function (relation) {
+    window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
         if(!relation) return true;
     })
 </function>
