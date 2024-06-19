@@ -1,4 +1,4 @@
-path: src/test/resources
+path: {{#boundedContext}}{{nameCamelCase}}{{/boundedContext}}/src/test/resources
 except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
 ---
 server:
