@@ -24,6 +24,7 @@ public class TestDataConfig {
             {{#examples}}
             {{#then}}
             {{#each value}}
+            {{../../../../../../nameCamelCase}}
             {{@key}}{{this}}
             {{/each}}
             {{/then}}
