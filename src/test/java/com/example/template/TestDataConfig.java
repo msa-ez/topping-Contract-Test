@@ -22,17 +22,16 @@ public class TestDataConfig {
             {{#incomingRelations}}
             {{#source}}
             {{#examples}}
-            {{#then}}
+            {{#given}}
             {{#each value}}
             {{../../../../../../nameCamelCase}}.set{{pascalCase @key}}({{#compare @key this ../../../../../../aggregateRoot.fieldDescriptors}}{{/compare}})
             {{/each}}
-            {{/then}}
+            {{/given}}
             {{/examples}}
             {{/source}}
             {{/incomingRelations}}
             {{/attached}}
-      
-            repository.save(sickLeave);
+            repository.save({{nameCamelCase}});
         };
     }
 }
