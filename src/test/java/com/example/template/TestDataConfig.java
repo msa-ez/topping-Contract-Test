@@ -17,7 +17,16 @@ public class TestDataConfig {
     @Bean
     public CommandLineRunner initData({{namePascalCase}}Repository repository) {
         return args -> {
-            {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();     
+            {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
+            {{#attached "Event" this}}
+            {{#incomingRelations}}
+            {{#source}}
+            {{#examples}}
+            {{/examples}}
+            {{/source}}
+            {{/incomingRelations}}
+            {{/attached}}
+      
             repository.save(sickLeave);
         };
     }
