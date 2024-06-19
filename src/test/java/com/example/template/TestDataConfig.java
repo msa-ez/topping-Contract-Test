@@ -7,23 +7,30 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
-import industrialaccident.domain.SickLeave;
-import industrialaccident.domain.SickLeaveRepository;
+import industrialaccident.domain.{{namePascalCase}};
+import industrialaccident.domain.{{namePascalCase}}Repository;
 
 
 @TestConfiguration
 public class TestDataConfig {
 
     @Bean
-    public CommandLineRunner initData(SickLeaveRepository repository) {
+    public CommandLineRunner initData({{namePascalCase}}Repository repository) {
         return args -> {
-            SickLeave sickLeave = new SickLeave();
-            sickLeave.setAccessmentId(1L);
-            sickLeave.setAccidentId(1L);
-            sickLeave.setBusinessCode("bc_1");
-            sickLeave.setEmployeeId("user01");
-            sickLeave.setPeriod(10);
-            sickLeave.setStatus("휴업급여 요청됨");;
+            {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
+            {{#attached "Event" this}}
+            {{#incomingRelations}}
+            {{#source}}
+            {{#examples}}
+            {{#then}}
+            {{#each value}}
+            {{@key}}{{this}}
+            {{/each}}
+            {{/then}}
+            {{/examples}}
+            {{/source}}
+            {{/incomingRelations}}
+            {{/attached}}
       
             repository.save(sickLeave);
         };
@@ -34,4 +41,15 @@ public class TestDataConfig {
     window.$HandleBars.registerHelper('checkIncoming', function (examples) {
         if(!examples) return true;
     })
+
+    var givenField = []
+    for(var i = 0; i < this.aggregateList.length; i++){
+        givenField = this.aggregateList[0].aggregateRoot.fieldDescriptors;
+    }
+    if(this.incomingRelations){
+        var whenField = this.incomingRelations[0].source.fieldDescriptors;
+    }
+    if(this.outgoingRelations){
+        var thenField = this.outgoingRelations[0].target.fieldDescriptors;
+    }
 </function>
