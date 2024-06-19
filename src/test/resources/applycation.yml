@@ -1,4 +1,5 @@
 path: {{nameCamelCase}}/src/test/resources
+fileName: applycation.yml
 except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
 ---
 server:
