@@ -1,6 +1,6 @@
 forEach: Aggregate
 fileName:{{nameCamelCase}}Get.groovy
-Exception:{{#attached "Event" this}}{{#checkOutgoingRelations outgoingRelations}}{{/attached}}
+Exception:{{#attached "Event" this}}{{#checkOutgoingRelations outgoingRelations}}{{/checkOutgoingRelations}}{{/attached}}
 ---
 
 
