@@ -1,3 +1,4 @@
+forEach: Aggregate
 path: {{boundedContext.name}}/{{options.packagePath}}/config
 ---
 package {{options.package}}.config;
