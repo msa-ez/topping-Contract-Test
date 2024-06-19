@@ -1,4 +1,6 @@
-package {{package.options}}.config;
+path: {{boundedContext.name}}/{{options.packagePath}}/config
+---
+package {{options.package}}.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;

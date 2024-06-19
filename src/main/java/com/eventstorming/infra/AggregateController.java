@@ -1,6 +1,6 @@
 forEach: Aggregate
 fileName: {{namePascalCase}}Controller.java
-path: {{boundedContext.name}}/{{{options.packagePath}}}/infra
+path: {{boundedContext.name}}/{{options.packagePath}}/infra
 except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
 ---
 package {{options.package}}.infra;
