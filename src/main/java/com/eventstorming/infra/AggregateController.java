@@ -24,16 +24,16 @@ public class {{namePascalCase}}Controller {
     {{#outgoingRelations}}
     {{#target}}
     {{#attached "Aggregate" this}}
-    @Value("${api.url.{{nameCamelCase}}")
+    @Value("${api.url.{#wrapRight nameCamelCase}}{{/wrapRight}}")
     private String apiUrl;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/order/validate{{namePascalCase}}/{productId}")
-    public ResponseEntity<String> {{nameCamelCase}}StockCheck(@PathVariable(value = "productId") Long productId) {
+    @GetMapping("/order/validate{{namePascalCase}}/{{#wrapLeft nameCamelCase}}{{/wrapLeft}}Id}")
+    public ResponseEntity<String> {{nameCamelCase}}StockCheck(@PathVariable(value = "{{nameCamelCase}}Id") Long {{nameCamelCase}}Id) {
     
-        String {{nameCamelCase}}Url = apiUrl + "/{{nameCamelCase}}/" + productId;
+        String {{nameCamelCase}}Url = apiUrl + "/{{nameCamelCase}}/" + {{nameCamelCase}}Id;
     
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -52,5 +52,13 @@ public class {{namePascalCase}}Controller {
 <function>
     window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
         if(!relation) return true;
+    })
+
+    window.$HandleBars.registerHelper('wrapRight', function (name) {
+        return name + "}";
+    })
+
+    window.$HandleBars.registerHelper('wrapLeft', function (name) {
+        return "{" + name;
     })
 </function>
