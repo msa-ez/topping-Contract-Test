@@ -21,7 +21,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: orders${random.value}
+          group: {{#aggregates}}{{namePlural}}{{/aggregates}}${random.value}
           destination: eventTopic
           contentType: application/json
         event-out:
@@ -48,10 +48,10 @@ logging:
 
 api:
   url:
-    product: http://localhost:8085
+    {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{boundedContext.portGenerated}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}: http://localhost:8085
 
 server:
-  port: 8081
+  port: {{portGenerated}}
 ---
 spring:
   profiles: docker
@@ -75,7 +75,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: orders
+          group: {{#aggregates}}{{namePlural}}{{/aggregates}}
           destination: eventTopicDocker
           contentType: application/json
         event-out:
@@ -83,5 +83,5 @@ spring:
           contentType: application/json
 api:
   url:
-    product: http://products:8080
+    {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}: http://{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePlural}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}:8080
 
