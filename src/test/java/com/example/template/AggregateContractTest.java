@@ -1,6 +1,6 @@
 forEach: Aggregate
 fileName: {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}ContractTest.java
-path: src/test/java/com/example/template
+path: {{#boundedContext}}{{nameCamelCase}}{{/boundedContext}}/src/test/java/com/example/template
 except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
 ---
 package com.example.template;
