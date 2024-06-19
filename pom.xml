@@ -77,7 +77,10 @@
 			<scope>test</scope>
 		</dependency>	
 		{{/if}}
-		{{#if incomingRelations}}
+		{{#attached "Event" this}}
+		{{#incomingRelations}}
+		{{#source}}
+		{{#if examples}}
 		<!-- Producer Sdie Contract dependencies  -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -86,6 +89,9 @@
 			<scope>test</scope>
 		</dependency>
 		{{/if}}
+		{{/source}}
+		{{/incomingRelations}}
+		{{/attached}}
 		{{/attached}}
 	</dependencies>
 
@@ -108,7 +114,9 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			{{#attached "Event" this}}
-			{{#if incomingRelations}}
+			{{#incomingRelations}}
+			{{#source}}
+			{{#if examples}}
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
@@ -121,6 +129,8 @@
 				</configuration>
 			</plugin>
 			{{/if}}
+			{{/source}}
+			{{/incomingRelations}}
 			{{/attached}}
 		</plugins>
 		
