@@ -1,6 +1,6 @@
 forEach: Aggregate
 fileName: {{namePascalCase}}Conrtoller.java
-path: src/main/java/com/eventstorming/infra
+path: {{boundedContext.name}}/{{{options.packagePath}}}/infra
 except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
 ---
 package com.example.template;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-public class OrderController {
+public class {{namePascalCase}}Controller {
 
     @Value("${api.url.product}")
     private String apiUrl;

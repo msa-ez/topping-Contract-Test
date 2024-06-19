@@ -1,5 +1,5 @@
 forEach: Aggregate
-path: {{#boundedContext}}{{nameCamelCase}}{{/boundedContext}}/src/test/java/com/example/template
+path: {{boundedContext.name}}/src/test/java/com/example/template
 except: {{#attached "Event" this}}{{#incomingRelations}}{{#source}}{{#checkIncoming examples}}{{/checkIncoming}}{{/source}}{{/incomingRelations}}{{/attached}}
 ---
 package com.example.template;
