@@ -15,18 +15,34 @@ org.springframework.cloud.contract.spec.Contract.make {
     response {
         status 200
         body(
-                id: 1,
-                name: "TV",
-                price: 10000,
-                stock: 10,
-                imageUrl: "testUrl"
+            {{#attached "Event" this}}
+            {{#outgoingRelations}}
+            {{#target}}
+            {{#examples}}
+            {{#then}}
+            {{#each value}}
+                {{@key}}: {{this}}
+            {{/each}}
+            {{/then}}
+            {{/examples}}
+            {{/target}}
+            {{/outgoingRelations}}
+            {{/attached}}
         )
         bodyMatchers {
-            jsonPath('$.id', byRegex(nonEmpty()).asLong())
-            jsonPath('$.name', byRegex(nonEmpty()).asString())
-            jsonPath('$.price', byRegex(nonEmpty()).asLong())
-            jsonPath('$.stock', byRegex(nonEmpty()).asLong())
-            jsonPath('$.imageUrl', byRegex(nonEmpty()).asString())
+            {{#attached "Event" this}}
+            {{#outgoingRelations}}
+            {{#target}}
+            {{#examples}}
+            {{#then}}
+            {{#each value}}
+            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../../../../aggregateRoot.fieldDescriptors}}{{/setExampleType}}())
+            {{/each}}
+            {{/then}}
+            {{/examples}}
+            {{/target}}
+            {{/outgoingRelations}}
+            {{/attached}}
         }
         headers {
             contentType(applicationJson())
@@ -39,3 +55,13 @@ org.springframework.cloud.contract.spec.Contract.make {
         if(!relation) return true;
     })
 </function>
+
+window.$HandleBars.registerHelper('setExampleType', function (key, value, field) {
+        var type = 'String'
+        for(var i = 0; i < field.length; i++){
+            if(field[i].name == key){
+                type = field[i].className
+            }
+        }
+        return type;
+    })

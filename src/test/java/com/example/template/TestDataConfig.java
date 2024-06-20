@@ -24,7 +24,7 @@ public class TestDataConfig {
             {{#examples}}
             {{#given}}
             {{#each value}}
-            {{../../../../../../nameCamelCase}}.set{{pascalCase @key}}({{#compare @key this ../../../../../../aggregateRoot.fieldDescriptors}}{{/compare}})
+            {{../../../../../../nameCamelCase}}.set{{pascalCase @key}}({{#compareAndSetType @key this ../../../../../../aggregateRoot.fieldDescriptors}}{{/compareAndSetType}})
             {{/each}}
             {{/given}}
             {{/examples}}
@@ -41,7 +41,7 @@ public class TestDataConfig {
         if(!examples) return true;
     })
 
-    window.$HandleBars.registerHelper('compare', function (key, value, field) {
+    window.$HandleBars.registerHelper('compareAndSetType', function (key, value, field) {
         var type = 'String'
         for(var i = 0; i < field.length; i++){
             if(field[i].name == key){
