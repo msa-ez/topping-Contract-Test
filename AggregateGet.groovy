@@ -21,7 +21,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#then}}
             {{#each value}}
-                {{@key}}: {{this}}
+                {{@key}}: {{this}},
             {{/each}}
             {{/then}}
             {{/examples}}
@@ -36,7 +36,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#then}}
             {{#each value}}
-            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../aggregateList}}{{/setExampleType}}())
+            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../aggregateList ../../../aggregate}}{{/setExampleType}}())
             {{/each}}
             {{/then}}
             {{/examples}}
@@ -55,16 +55,25 @@ org.springframework.cloud.contract.spec.Contract.make {
         if(!relation) return true;
     })
 
-    window.$HandleBars.registerHelper('setExampleType', function (key, value, field) {
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList, aggregate) {
         var type = 'String'
-        for(var i = 0; i < field.length; i++){
-            for(var j = 0; j< field[i].aggregateRoot.fieldDescriptors.length; j++){
-                if(field[i].aggregateRoot.fieldDescriptors[j].name == key){
-                    type = field[i].aggregateRoot.fieldDescriptors[j].className
+        if(aggregateList){
+            for(var i = 0; i < aggregateList.length; i++){
+                for(var j = 0; j< aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
+                    if(aggregateList[i].aggregateRoot.fieldDescriptors[j].name == key){
+                        type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
+                    }
+                }
+                
+            }
+        }else if(!aggregateList && aggregate){
+            for(var i = 0; i < aggregate.aggregateRoot.fieldDescriptors.length; i++){
+                if(aggregate.aggregateRoot.fieldDescriptors[i].name == key){
+                    type = aggregate.aggregateRoot.fieldDescriptors[i].className
                 }
             }
-            
         }
+        
         return type;
     })
 </function>
