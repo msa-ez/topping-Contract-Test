@@ -54,7 +54,7 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
         {{#examples}}
         {{#then}}
         {{#each value}}
-        Assertions.assertThat(parsedJson.read("$.{{camelCase @key}}", {{#setExampleType @key this ../../../aggregateList}}{{/setExampleType}}()).class)).{{#setAssertion @key this ../../../aggregateList}}{{/setAssertion}}
+        Assertions.assertThat(parsedJson.read("$.{{camelCase @key}}", {{#setExampleType @key this ../../../aggregateList}}{{/setExampleType}}.class)).{{#setAssertion @key this ../../../aggregateList}}{{/setAssertion}}
         {{/each}}
         {{/then}}
         {{/examples}}

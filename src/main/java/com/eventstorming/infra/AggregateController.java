@@ -52,7 +52,6 @@ public class {{namePascalCase}}Controller {
     {{/outgoingRelations}}
     {{/attached}}
 }
----
 <function>
     window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
         if(!relation) return true;
