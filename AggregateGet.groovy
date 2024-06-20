@@ -7,7 +7,7 @@ package contracts.rest
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method 'GET'
-        url ('/{{nameCamelCase}}/1')
+        url ('/{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{namePlural}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{/attached}}/1')
         headers {
             contentType(applicationJson())
         }
