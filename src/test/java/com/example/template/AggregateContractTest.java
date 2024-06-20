@@ -54,7 +54,7 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
         {{#examples}}
         {{#then}}
         {{#each value}}
-        Assertions.assertThat(parsedJson.read("$.{{camelCase @key}}", {{#setExampleType @key this ../../../aggregateList}}{{/setExampleType}}.class)).{{#setAssertion @key this ../../../aggregateList}}{{/setAssertion}}
+        Assertions.assertThat(parsedJson.read("$.{{camelCase @key}}", {{#setExampleType @key this ../../../aggregateList ../../../aggregate}}{{/setExampleType}}.class)).{{#setAssertion @key this ../../../aggregateList}}{{/setAssertion}}
         {{/each}}
         {{/then}}
         {{/examples}}
@@ -70,15 +70,22 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
         if(!relation) return true;
     })
 
-    window.$HandleBars.registerHelper('setExampleType', function (key, value, field) {
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList, aggregate) {
         var type = 'String'
-        for(var i = 0; i < field.length; i++){
-            for(var j = 0; j< field[i].aggregateRoot.fieldDescriptors.length; j++){
-                if(field[i].aggregateRoot.fieldDescriptors[j].name == key){
-                    type = field[i].aggregateRoot.fieldDescriptors[j].className
+        if(aggregateList){
+            for(var i = 0; i < aggregateList.length; i++){
+                for(var j = 0; j< aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
+                    if(aggregateList[i].aggregateRoot.fieldDescriptors[j].name == key){
+                        type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
+                    }
                 }
             }
-            
+        }else if(!aggregateList && aggregate){
+            for(var i = 0; i < aggregate.aggregateRoot.fieldDescriptors.length; i++){
+                if(aggregate.aggregateRoot.fieldDescriptors[i].name == key){
+                    type = aggregate.aggregateRoot.fieldDescriptors[i].className
+                }
+            }
         }
         return type;
     })
