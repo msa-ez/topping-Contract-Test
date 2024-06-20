@@ -36,7 +36,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#then}}
             {{#each value}}
-            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../aggregateList.aggregateRoot.fieldDescriptors}}{{/setExampleType}}())
+            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../aggregateList.aggregateRoot.fieldDescriptors}}{{/setExampleType}}())
             {{/each}}
             {{/then}}
             {{/examples}}
