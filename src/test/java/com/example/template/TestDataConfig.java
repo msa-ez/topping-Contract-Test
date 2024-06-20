@@ -7,8 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
-import industrialaccident.domain.{{namePascalCase}};
-import industrialaccident.domain.{{namePascalCase}}Repository;
+import {{options.package}}.domain.{{namePascalCase}};
+import {{options.package}}.domain.{{namePascalCase}}Repository;
 
 
 @TestConfiguration
@@ -24,7 +24,7 @@ public class TestDataConfig {
             {{#examples}}
             {{#given}}
             {{#each value}}
-            {{../../../../../../nameCamelCase}}.set{{pascalCase @key}}({{#compareAndSetType @key this ../../../../../../aggregateRoot.fieldDescriptors}}{{/compareAndSetType}})
+            {{../../../../../../nameCamelCase}}.set{{pascalCase @key}}({{#compareAndSetType @key this ../../../../../../aggregateRoot.fieldDescriptors}}{{/compareAndSetType}});
             {{/each}}
             {{/given}}
             {{/examples}}
