@@ -35,9 +35,9 @@ public class {{namePascalCase}}Controller {
     private RestTemplate restTemplate;
 
     @GetMapping("/{{nameCamelCase}}/validate{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}/{{#wrapLeft nameCamelCase}}{{/wrapLeft}}Id}")
-    public ResponseEntity<String> {{nameCamelCase}}StockCheck(@PathVariable(value = "{{nameCamelCase}}Id") Long {{nameCamelCase}}Id) {
+    public ResponseEntity<String> {{nameCamelCase}}StockCheck(@PathVariable(value = "{{keyFieldDescriptor.nameCamelCase}}") {{keyFieldDescriptor.className}} {{keyFieldDescriptor.nameCamelCase}}) {
     
-        String {{nameCamelCase}}Url = apiUrl + "/{{nameCamelCase}}/" + {{nameCamelCase}}Id;
+        String {{nameCamelCase}}Url = apiUrl + "/{{nameCamelCase}}/" + {{keyFieldDescriptor.nameCamelCase}};
     
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
