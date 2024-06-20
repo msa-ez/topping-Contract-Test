@@ -54,9 +54,8 @@ org.springframework.cloud.contract.spec.Contract.make {
     window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
         if(!relation) return true;
     })
-</function>
 
-window.$HandleBars.registerHelper('setExampleType', function (key, value, field) {
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, field) {
         var type = 'String'
         for(var i = 0; i < field.length; i++){
             for(var j = 0; j< field[i].aggregateRoot.fieldDescriptors.length; j++){
@@ -68,3 +67,4 @@ window.$HandleBars.registerHelper('setExampleType', function (key, value, field)
         }
         return type;
     })
+</function>

@@ -48,11 +48,19 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
         DocumentContext parsedJson = JsonPath.parse(responseString);
         // and:
         // examples
-        Assertions.assertThat(parsedJson.read("$.id", String.class)).matches("[\\S\\s]+");
-        Assertions.assertThat(parsedJson.read("$.name", String.class)).matches("[\\S\\s]+");
-        Assertions.assertThat(parsedJson.read("$.price", String.class)).matches("[\\S\\s]+");
-        Assertions.assertThat(parsedJson.read("$.stock", String.class)).matches("[\\S\\s]+");
-        Assertions.assertThat(parsedJson.read("$.imageUrl", String.class)).matches("[\\S\\s]+");
+        {{#attached "Event" this}}
+        {{#outgoingRelations}}
+        {{#target}}
+        {{#examples}}
+        {{#then}}
+        {{#each value}}
+        Assertions.assertThat(parsedJson.read("$.{{camelCase @key}}", {{#setExampleType @key this ../../../aggregateList}}{{/setExampleType}}()).class)).{{#setAssertion @key this ../../../aggregateList}}
+        {{/each}}
+        {{/then}}
+        {{/examples}}
+        {{/target}}
+        {{/outgoingRelations}}
+        {{/attached}}
     }
 
 }
@@ -60,5 +68,42 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
 <function>
     window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
         if(!relation) return true;
+    })
+
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, field) {
+        var type = 'String'
+        for(var i = 0; i < field.length; i++){
+            for(var j = 0; j< field[i].aggregateRoot.fieldDescriptors.length; j++){
+                if(field[i].aggregateRoot.fieldDescriptors[j].name == key){
+                    type = field[i].aggregateRoot.fieldDescriptors[j].className
+                }
+            }
+            
+        }
+        return type;
+    })
+
+    window.$HandleBars.registerHelper('setAssertion', function (key, value, field) {
+        var type = 'String'
+        for(var i = 0; i < field.length; i++){
+            for(var j = 0; j< field[i].aggregateRoot.fieldDescriptors.length; j++){
+                if(field[i].aggregateRoot.fieldDescriptors[j].name == key){
+                    type = field[i].aggregateRoot.fieldDescriptors[j].className
+                }
+            }
+            
+        }
+        switch (type) {
+            case 'String':
+                return 'matches("[\\S\\s]+");'
+            case 'Long':
+                return 'isGreaterThan(0L);'
+            case 'Integer':
+                return 'isGreaterThan(0);'
+            case 'Boolean':
+            return 'isTrue();'
+            default:
+            throw new Error(`Unsupported type: ${type}`);
+        }
     })
 </function>
