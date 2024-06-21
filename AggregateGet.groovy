@@ -6,11 +6,26 @@ package contracts.rest
 
 org.springframework.cloud.contract.spec.Contract.make {
     request {
-        method 'GET'
-        url ('/{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#if aggregateList}}{{#aggregateList}}{{namePlural}}{{/aggregateList}}{{else}}{{aggregate.namePlural}}{{/if}}{{/target}}{{/outgoingRelations}}{{/attached}}/1')
+        method '{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#if aggregateList}}{{#../../incomingRelations}}{{source.controllerInfo.method}}{{/../../incomingRelations}}{{/if}}{{#if aggregate}}{{controllerInfo.method}}{{/if}}'
+        url ('/{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#if aggregateList}}{{#aggregateList}}{{namePlural}}{{/aggregateList}}{{else}}{{#checkExtendVerbType controller.method controllerInfo.apiPath}}{{/checkExtendVerbType}}{{/if}}{{/target}}{{/outgoingRelations}}{{/attached}}')
         headers {
-            contentType(applicationJson())
+            contentType(applicationJsonUtf8())
         }
+        body(
+            {{#attached "Event" this}}
+            {{#outgoingRelations}}
+            {{#target}}
+            {{#examples}}
+            {{#when}}
+            {{#each value}}
+                {{@key}}: {{this}}{{#unless @last}},{{/unless}}
+            {{/when}}
+            {{/then}}
+            {{/examples}}
+            {{/target}}
+            {{/outgoingRelations}}
+            {{/attached}}
+        )
     }
     response {
         status 200
@@ -21,7 +36,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#then}}
             {{#each value}}
-                {{@key}}: {{this}},
+                {{@key}}: {{this}}{{#unless @last}},{{/unless}}
             {{/each}}
             {{/then}}
             {{/examples}}
@@ -45,7 +60,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{/attached}}
         }
         headers {
-            contentType(applicationJson())
+            contentType(applicationJsonUtf8())
         }
     }
 }
@@ -75,5 +90,13 @@ org.springframework.cloud.contract.spec.Contract.make {
         }
         
         return type;
+    })
+
+    window.$HandleBars.registerHelper('checkExtendVerbType', function (yype, path) {
+        if(type == 'POST'){
+            return path;
+        }else{
+            return path + '/1';
+        }
     })
 </function>

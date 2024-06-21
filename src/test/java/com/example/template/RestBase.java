@@ -30,10 +30,12 @@ public class RestBase {
 
     @Before
     public void setup() {
-        StandaloneMockMvcBuilder standaloneMockMvcBuilder = MockMvcBuilders.standaloneSetup({{nameCamelCase}}Controller);
-        RestAssuredMockMvc.standaloneSetup(standaloneMockMvcBuilder);
+        StandaloneMockMvcBuilder standaloneMockMvcBuilder = MockMvcBuilders.standaloneSetup(
+            {{nameCamelCase}}Controller
+        ).addFilters(new CharacterEncodingFilter("UTF-8", true)); 
 
-        
+        RestAssuredMockMvc.standaloneSetup(standaloneMockMvcBuilder);
+        RestAssuredMockMvc.given().contentType("application/json;charset=UTF-8"); 
     }
 }
 <function>
