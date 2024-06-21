@@ -88,7 +88,8 @@ spring:
 {{#if target}}
 {{#target}}
 api:
-  url: {{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}: http://{{#attached "Aggregate" this}}{{namePlural}}{{/attached}}:8080
+  url: 
+    {{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}: http://{{#attached "Aggregate" this}}{{namePlural}}{{/attached}}:8080
 {{/target}}
 {{/if}}
 {{/outgoingRelations}}
