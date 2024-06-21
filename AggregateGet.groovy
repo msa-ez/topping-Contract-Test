@@ -67,7 +67,9 @@ org.springframework.cloud.contract.spec.Contract.make {
 
 <function>
     window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
-        if(!relation) return true;
+        if(!relation){
+            return true;
+        }
         return false;
     })
 
