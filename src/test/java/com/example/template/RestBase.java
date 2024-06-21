@@ -13,11 +13,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
-import edittemplate.infra.{{namePascalCase}}Controller;
+import org.springframework.context.annotation.Import;
+
+import {{options.package}}.infra.{{namePascalCase}}Controller;
+import {{options.package}}.{{namePascalCase}}Application;
+
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {{namePascalCase}}Application.class)
 @AutoConfigureMockMvc
+@Import(TestDataConfig.class)
 public class RestBase {
 
     @Autowired
