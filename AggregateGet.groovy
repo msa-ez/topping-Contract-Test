@@ -6,7 +6,7 @@ package contracts.rest
 
 org.springframework.cloud.contract.spec.Contract.make {
     request {
-        method '{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#if aggregateList}}{{#../../incomingRelations}}{{source.controllerInfo.method}}{{/../../incomingRelations}}{{/if}}{{#if aggregate}}{{controllerInfo.method}}{{/if}}'
+        method '{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#if aggregateList}}{{#../incomingRelations}}{{source.controllerInfo.method}}{{/../incomingRelations}}{{/if}}{{#if aggregate}}{{controllerInfo.method}}{{/if}}'
         url ('/{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#if aggregateList}}{{#aggregateList}}{{namePlural}}{{/aggregateList}}{{else}}{{#checkExtendVerbType controller.method controllerInfo.apiPath}}{{/checkExtendVerbType}}{{/if}}{{/target}}{{/outgoingRelations}}{{/attached}}')
         headers {
             contentType(applicationJsonUtf8())
