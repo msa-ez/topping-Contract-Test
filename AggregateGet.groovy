@@ -18,7 +18,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#when}}
             {{#each value}}
-                {{@key}}: {{this}}{{#unless @last}},{{/unless}}
+                {{@key}}: {{this}}
             {{/each}}
             {{/when}}
             {{/examples}}
@@ -36,7 +36,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#then}}
             {{#each value}}
-                {{@key}}: {{this}}{{#unless @last}},{{/unless}}
+                {{@key}}: {{this}}
             {{/each}}
             {{/then}}
             {{/examples}}
