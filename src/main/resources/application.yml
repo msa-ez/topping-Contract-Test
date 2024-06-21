@@ -83,7 +83,13 @@ spring:
         event-out:
           destination: eventTopicDocker
           contentType: application/json
+{{#attached "Event" this}}
+{{#outgoingRelations}}
+{{#if target}}
+{{#target}}
 api:
-  url:
-    {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}: http://{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePlural}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}:8080
-
+  url: {{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}: http://{{#attached "Aggregate" this}}{{namePlural}}{{/attached}}:8080
+{{/target}}
+{{/if}}
+{{/outgoingRelations}}
+{{/attached}}
