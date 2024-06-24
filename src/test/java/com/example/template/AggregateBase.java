@@ -1,5 +1,6 @@
 forEach: Aggregate
 path: {{boundedContext.name}}/src/test/java/com/example/template
+fileNmae: RestBase.java
 except: {{#attached "Event" this}}{{#incomingRelations}}{{#source}}{{#checkIncoming examples}}{{/checkIncoming}}{{/source}}{{/incomingRelations}}{{/attached}}
 ---
 package com.example.template;

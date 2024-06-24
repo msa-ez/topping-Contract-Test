@@ -1,13 +1,13 @@
 forEach: Aggregate
 fileName: {{nameCamelCase}}Get.groovy
-except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
+except: {{#attached "Command" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
 ---
 package contracts.rest
 
 org.springframework.cloud.contract.spec.Contract.make {
     request {
-        method '{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#if aggregate}}{{controllerInfo.method}}{{/if}}'
-        url ('/{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#if aggregate}}{{aggregate.namePlural}}{{#checkExtendVerbType controller.method controllerInfo.apiPath}}{{/if aggregate}}{{/checkExtendVerbType}}{{/if}}{{/target}}{{/outgoingRelations}}{{/attached}}')
+        method 'GET'
+        url ('/{{#attached "Command" this}}{{#outgoingRelations}}{{#target}}{{queryOption.apiPath}}{{/target}}{{/outgoingRelations}}{{/attached}}/1')
         headers {
             contentType(applicationJsonUtf8())
         }
@@ -68,7 +68,7 @@ org.springframework.cloud.contract.spec.Contract.make {
 <function>
     window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
         for(var i = 0; i < relation.length; i++){
-            if(!relation[i].target._type.includes('Command') || !relation[i].target.examples){
+            if(!relation[i].target._type.includes('View') ){
                 return true;
             }
         }
