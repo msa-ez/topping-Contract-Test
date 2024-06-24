@@ -1,6 +1,6 @@
 forEach: Aggregate
 path: {{boundedContext.name}}/src/test/java/com/example/template
-fileNmae: RestBase.java
+fileName: RestBase.java
 except: {{#attached "Command" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
 ---
 package com.example.template;
@@ -39,6 +39,7 @@ public class RestBase {
         RestAssuredMockMvc.given().contentType("application/json;charset=UTF-8"); 
     }
 }
+<function>
 window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
     for(var i = 0; i < relation.length; i++){
         if(!relation[i].target._type.includes('View') ){
