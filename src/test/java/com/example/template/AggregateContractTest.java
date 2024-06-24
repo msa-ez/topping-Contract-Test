@@ -30,7 +30,7 @@ import {{options.package}}.{{namePascalCase}}Application;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {{namePascalCase}}Application.class)
 @AutoConfigureMockMvc
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, 
-                         ids = "com.example:{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePlural}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}:+:stubs:8090")
+                         ids = "{{options.package}}:{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}:+:stubs:8090")
 @ActiveProfiles("test")                      
 public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}ContractTest {
 
@@ -38,7 +38,7 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
    MockMvc mockMvc;
 
     @Test
-    public void getProduct_stub_test() throws Exception {
+    public void get{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}_stub_test() throws Exception {
 
         MvcResult result = mockMvc
         .perform(MockMvcRequestBuilders.get("/{{nameCamelCase}}/validate{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}/1")
