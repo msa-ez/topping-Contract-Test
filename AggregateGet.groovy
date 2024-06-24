@@ -7,6 +7,7 @@ package contracts.rest
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method '{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#if aggregate}}{{controllerInfo.method}}{{/if}}'
+        url ('/{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#if aggregate}}{{aggregate.namePlural}}{{#checkExtendVerbType controller.method controllerInfo.apiPath}}{{/checkExtendVerbType}}{{/if}}{{/target}}{{/outgoingRelations}}{{/attached}}')
         headers {
             contentType(applicationJsonUtf8())
         }
@@ -63,6 +64,8 @@ org.springframework.cloud.contract.spec.Contract.make {
         }
     }
 }
+
+
 <function>
     window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
         for(var i = 0; i < relation.length; i++){
@@ -93,5 +96,13 @@ org.springframework.cloud.contract.spec.Contract.make {
         }
         
         return type;
+    })
+
+    window.$HandleBars.registerHelper('checkExtendVerbType', function (type, path) {
+        if(type == 'POST'){
+            return path;
+        }else{
+            return '/1/'+ path;
+        }
     })
 </function>
