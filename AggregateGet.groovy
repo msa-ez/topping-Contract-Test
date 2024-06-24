@@ -101,6 +101,7 @@ window.$HandleBars.registerHelper('checkExtendVerbType', function (type, path) {
     if(type == 'POST'){
         return path;
     }else{
-        return '/1/'+ path;
+        path = '/1/' + path
+        return path;
     }
 })
