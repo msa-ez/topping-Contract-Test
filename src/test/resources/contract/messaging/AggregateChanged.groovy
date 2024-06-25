@@ -27,6 +27,7 @@ Contract.make {
                 {{#each value}}
                     {{@key}}: {{#checkExampleType this}}{{/checkExampleType}},
                 {{/each}}
+                {{/then}}
                 {{/examples}}
                 {{/source}}
                 {{/incomingRelations}}
