@@ -18,25 +18,20 @@ Contract.make {
         // Consumer Expected Payload spec. that a JSON message must have, 
         // If the Producer-side test is OK, then send the following msg to event-out channel.
         body(
-                eventType: "{{#attached "Event" this}}{{namePascalCase}}{{/attached}}",
-                {#attached "Event" this}}
-                {{#incomingRelations}}
-                {{#source}}
-                {{#examples}}
-                {{#then}}
-                {{#each value}}
-                    {{@key}}: {{#checkExampleType this}}{{/checkExampleType}},
-                {{/each}}
-                {{/then}}
-                {{/examples}}
-                {{/source}}
-                {{/incomingRelations}}
-                {{/attached}}
-                productId: 1,
-                productName: "TV",
-                productPrice: 10000,
-                productStock: 10,
-                imageUrl: "tv.jpg"
+            eventType: "{{#attached "Event" this}}{{namePascalCase}}{{/attached}}",
+            {{#attached "Event" this}}
+            {{#incomingRelations}}
+            {{#source}}
+            {{#examples}}
+            {{#then}}
+            {{#each value}}
+                {{@key}}: {{#checkExampleType this}}{{/checkExampleType}},
+            {{/each}}
+            {{/then}}
+            {{/examples}}
+            {{/source}}
+            {{/incomingRelations}}
+            {{/attached}}
         )
         bodyMatchers {
             {{#attached "Event" this}}
