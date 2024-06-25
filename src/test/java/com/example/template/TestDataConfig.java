@@ -1,6 +1,6 @@
 forEach: Aggregate
 path:  {{boundedContext.name}}/src/test/java/com/example/template
-except: {{#attached "Event" this}}{{#incomingRelations}}{{#source}}{{#checkIncoming examples}}{{/checkIncoming}}{{/source}}{{/incomingRelations}}{{/attached}}
+except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
 ---
 package com.example.template;
 import org.springframework.boot.CommandLineRunner;
@@ -37,8 +37,11 @@ public class TestDataConfig {
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkIncoming', function (examples) {
-        if(!examples) return true;
+    window.$HandleBars.registerHelper('checkIncoming', function (source) {
+        if(source.type == 'Command' && sourc.examples){
+            return false;
+        } 
+        return true;
     })
 
     window.$HandleBars.registerHelper('compareAndSetType', function (key, value, field) {

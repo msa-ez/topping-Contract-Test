@@ -68,7 +68,7 @@ org.springframework.cloud.contract.spec.Contract.make {
 <function>
     window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
         for(var i = 0; i < relation.length; i++){
-            if(relation[i].target.type. != 'View'){
+            if(relation[i].target.type == 'View'){
                 return false;
             }
             return true;
