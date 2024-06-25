@@ -13,6 +13,8 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.MimeTypeUtils;
+import {{options.package}}.{{namePascalCase}}Application;
+import {{options.package}}.infra.{{namePascalCase}}Controller;
 
 import java.util.concurrent.TimeUnit;
 
