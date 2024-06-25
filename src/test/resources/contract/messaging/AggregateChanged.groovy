@@ -1,6 +1,6 @@
 forEach: Aggregate
 fileName: {{namePascalCase}}Changed.groovy
-path: {{name}}/src/test/resources/contract/messaging
+path: {{nameCamelCase}}/src/test/resources/contract/messaging
 except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
 ---
 package contracts.messaging
