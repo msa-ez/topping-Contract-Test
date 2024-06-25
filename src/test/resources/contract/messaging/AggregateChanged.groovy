@@ -55,7 +55,7 @@ Contract.make {
 }
 <function>
     window.$HandleBars.registerHelper('checkIncoming', function (source) {
-        if(!source.aggregateList || !source.examples) return true;
+        if(!source.aggregateList && !source.examples) return true;
     })
     window.$HandleBars.registerHelper('checkExampleType', function (value) {
         if (/^\d+$/.test(value)) {
