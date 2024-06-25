@@ -64,6 +64,7 @@ Contract.make {
     window.$HandleBars.registerHelper('checkExampleType', function (value) {
         if (/^\d+$/.test(value)) {
             return value.replace(/"/g, ""); 
+        }
         return value;
     })
     window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList, aggregate) {
