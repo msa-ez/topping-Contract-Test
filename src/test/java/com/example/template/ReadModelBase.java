@@ -46,9 +46,9 @@ window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
         return true;
     }
     for(var i = 0; i < relation.length; i++){
-        if(relation[i].target.type != 'View' ){
-            return true;
+        if(relation[i].target.type == 'View' ){
+            return false;
         }
-    }return false;
+    }return true;
 })
 </function>
