@@ -75,7 +75,9 @@
 			<scope>test</scope>
 		</dependency-->
 		{{#attached "Event" this}}
-		{{#if outgoingRelations}}
+		{{#outgoingRelations}}
+		{{#target}}
+		{{#if aggregate}}
 		<!-- Client Sdie Contract dependencies  -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -83,17 +85,52 @@
 			<version>${spring-cloud-contract.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-contract-stub-runner</artifactId>
-			<version>${spring-cloud-contract.version}</version>
+			<artifactId>spring-cloud-stream-test-support</artifactId>
 			<scope>test</scope>
-		</dependency>	
+		</dependency>
+
+		<!-- tag::stubrunner[] -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+			<scope>test</scope>
+		</dependency>
 		{{/if}}
+		{{/outgoingRelations}}
+		{{#if aggregateList}}
+		<!-- test -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-test-support</artifactId>
+			<scope>test</scope>
+		</dependency>
+		{{/if}}
+		{{/target}}
 		{{#incomingRelations}}
 		{{#source}}
+		{{#if aggregate}}
 		{{#if examples}}
 		<!-- Producer Sdie Contract dependencies  -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+			<version>${spring-cloud-contract.version}</version>
+			<scope>test</scope>
+		</dependency>
+		{{/if}}
+		{{/if}}
+		{{#if aggregateList}}
+		<!-- Support testing your microservice without connecting to a messaging system. -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-test-support</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Auto generating test Client based on CDC. -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
@@ -127,6 +164,7 @@
 			{{#attached "Event" this}}
 			{{#incomingRelations}}
 			{{#source}}
+			{{#if aggregate}}
 			{{#if examples}}
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
@@ -139,6 +177,27 @@
 					</baseClassForTests>
 				</configuration>
 			</plugin>
+			{{/if}}
+			{{/if}}
+			{{#if aggregateList}}
+			<!-- SPRING CLOUD CONTRACT -->
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>${spring-cloud-contract.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<packageWithBaseClasses>com.example.template</packageWithBaseClasses>
+					<baseClassMappings>
+						<baseClassMapping>
+							<contractPackageRegex>.*com.*</contractPackageRegex>
+							<baseClassFQN>com.example.template.MessagingBase</baseClassFQN>
+						</baseClassMapping>
+					</baseClassMappings>
+					<testMode>EXPLICIT</testMode>
+				</configuration>
+			</plugin>
+			<!-- SPRING CLOUD CONTRACT -->
 			{{/if}}
 			{{/source}}
 			{{/incomingRelations}}
