@@ -42,6 +42,9 @@ public class RestBase {
 }
 <function>
 window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
+    if(!relation){
+        return true;
+    }
     for(var i = 0; i < relation.length; i++){
         if(relation[i].target.type != 'View' ){
             return true;
