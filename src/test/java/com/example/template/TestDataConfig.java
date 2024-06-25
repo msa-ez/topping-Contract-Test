@@ -38,7 +38,7 @@ public class TestDataConfig {
 
 <function>
     window.$HandleBars.registerHelper('checkIncoming', function (source) {
-        if(source.type == 'Command' && sourc.examples){
+        if(source.type == 'Command' && source.examples){
             return false;
         } 
         return true;
