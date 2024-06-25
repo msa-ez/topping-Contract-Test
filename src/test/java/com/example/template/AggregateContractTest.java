@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import {{options.package}}.{{namePascalCase}}Application;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {{namePascalCase}}Application.class)
+@SpringBootTest(classes = {{options.package}}.{{namePascalCase}}Application.class)
 @AutoConfigureMockMvc
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, 
                          ids = "{{options.package}}:{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}:+:stubs:8090")

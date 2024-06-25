@@ -3,6 +3,10 @@ path: {{name}}/src/main/resources
 server:
   port: 8080
 
+spring:
+  application:
+    name: {{nameCamelCase}}
+
 ## 주문은 product 정보가 필요하다.
 ## checkStock 를 true 로 준다면, product 서비스가 죽어있을때는 주문이 안된다.
 checkStock: true
@@ -89,7 +93,7 @@ spring:
 {{#target}}
 api:
   url: 
-    {{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}: http://{{#attached "Aggregate" this}}{{namePlural}}{{/attached}}:8080
+    {{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}: http://localhost:8080
 {{/target}}
 {{/if}}
 {{/outgoingRelations}}

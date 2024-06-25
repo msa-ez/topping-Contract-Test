@@ -34,10 +34,10 @@ public class {{namePascalCase}}Controller {
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/{{nameCamelCase}}/validate{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}/{{#wrapLeft nameCamelCase}}{{/wrapLeft}}Id}")
+    @GetMapping("/{{nameCamelCase}}/validate{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}/{id}")
     public ResponseEntity<String> {{nameCamelCase}}StockCheck(@PathVariable(value = "{{keyFieldDescriptor.nameCamelCase}}") {{keyFieldDescriptor.className}} {{keyFieldDescriptor.nameCamelCase}}) {
     
-        String {{nameCamelCase}}Url = apiUrl + "/{{nameCamelCase}}/" + {{keyFieldDescriptor.nameCamelCase}};
+        String {{nameCamelCase}}Url = apiUrl + "/{{namePlural}}/" + {{keyFieldDescriptor.nameCamelCase}};
     
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -51,6 +51,13 @@ public class {{namePascalCase}}Controller {
     {{/target}}
     {{/outgoingRelations}}
     {{/attached}}
+
+    {{#attached "Event" this}}
+    {{#outgoingRelations}}
+    {{#target}}
+    {{/target}}
+    {{/outgoingRelations}}
+    {{/attached}}
 }
 <function>
     window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
@@ -59,9 +66,5 @@ public class {{namePascalCase}}Controller {
 
     window.$HandleBars.registerHelper('wrapRight', function (name) {
         return name + "}";
-    })
-
-    window.$HandleBars.registerHelper('wrapLeft', function (name) {
-        return "{" + name;
     })
 </function>
