@@ -1,6 +1,6 @@
 name: CDC Test
 rating: 5
-imageUrl: https://github.com/msa-ez/template-spring-boot-3/assets/123912988/59b786b5-28c5-425e-b082-7bc09680ebb1
+imageUrl: https://github.com/msa-ez/template-spring-boot-3/assets/123912988/b224288b-a404-4122-a405-a5921ccffa25
 description: Contract testing for maintaining API consistency between microservices.
 tags:
   - Test
