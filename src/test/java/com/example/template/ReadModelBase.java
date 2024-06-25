@@ -1,7 +1,7 @@
 forEach: Aggregate
 path: {{boundedContext.name}}/src/test/java/com/example/template
 fileName: RestBase.java
-except: {{#attached "Command" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
+except: {{#attached "Command" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
 ---
 package com.example.template;
 
@@ -41,14 +41,11 @@ public class RestBase {
     }
 }
 <function>
-window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
-    if(!relation){
-        return true;
+window.$HandleBars.registerHelper('checkTarget', function (target) {
+    if(!target) return true;
+    if(target.type == 'View' || target.type == 'ReadModel'){
+        return false;
     }
-    for(var i = 0; i < relation.length; i++){
-        if(relation[i].target.type == 'View' ){
-            return false;
-        }
-    }return true;
+    return true;
 })
 </function>

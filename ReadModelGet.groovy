@@ -1,6 +1,6 @@
 forEach: Aggregate
 fileName: {{nameCamelCase}}Get.groovy
-except: {{#attached "Command" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
+except: {{#attached "Command" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
 ---
 package contracts.rest
 
@@ -66,18 +66,13 @@ org.springframework.cloud.contract.spec.Contract.make {
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
-        if(!relation){
-            return true;
-        }
-        for(var i = 0; i < relation.length; i++){
-            if(relation[i].target.type == 'View'){
-                return false;
-            }
-            return true;
-        }
-        
-    })
+    window.$HandleBars.registerHelper('checkTarget', function (target) {
+    if(!target) return true;
+    if(target.type == 'View' || target.type == 'ReadModel'){
+        return false;
+    }
+    return true;
+})
 
     window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList, aggregate) {
         var type = 'String'
