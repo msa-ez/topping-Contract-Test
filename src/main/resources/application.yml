@@ -27,7 +27,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: {{#aggregates}}{{namePlural}}{{/aggregates}}${random.value}
+          group: {{#aggregates}}{{namePlural}}{{/aggregates}}
           destination: eventTopic
           contentType: application/json
         event-out:
