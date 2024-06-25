@@ -37,7 +37,7 @@ public abstract class MessagingBase {
         this.messaging.receive("eventTopic", 100, TimeUnit.MILLISECONDS);
     }
 
-    public void productChanged() {
+    public void {{#attached "Event" this}}{{nameCamelCase}}{{/attached}}() {
         String json = this.{{nameCamelCase}}Controller.{{nameCamelCase}}TestMsg(null);
 
         this.messaging.send(MessageBuilder

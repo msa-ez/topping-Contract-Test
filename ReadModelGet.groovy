@@ -1,6 +1,6 @@
-forEach: Aggregate
+forEach: ReadModel
 fileName: {{nameCamelCase}}Get.groovy
-except: {{#attached "Command" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
+except: {{^incoming "Command" this}}{{/incoming}}
 ---
 package contracts.rest
 
@@ -12,9 +12,6 @@ org.springframework.cloud.contract.spec.Contract.make {
             contentType(applicationJsonUtf8())
         }
         body(
-            {{#attached "Event" this}}
-            {{#outgoingRelations}}
-            {{#target}}
             {{#examples}}
             {{#when}}
             {{#each value}}
@@ -22,17 +19,12 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{/each}}
             {{/when}}
             {{/examples}}
-            {{/target}}
-            {{/outgoingRelations}}
             {{/attached}}
         )
     }
     response {
         status 200
         body(
-            {{#attached "Event" this}}
-            {{#outgoingRelations}}
-            {{#target}}
             {{#examples}}
             {{#then}}
             {{#each value}}
@@ -40,14 +32,8 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{/each}}
             {{/then}}
             {{/examples}}
-            {{/target}}
-            {{/outgoingRelations}}
-            {{/attached}}
         )
         bodyMatchers {
-            {{#attached "Event" this}}
-            {{#outgoingRelations}}
-            {{#target}}
             {{#examples}}
             {{#then}}
             {{#each value}}
@@ -55,9 +41,6 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{/each}}
             {{/then}}
             {{/examples}}
-            {{/target}}
-            {{/outgoingRelations}}
-            {{/attached}}
         }
         headers {
             contentType(applicationJsonUtf8())

@@ -1,4 +1,4 @@
-forEach: Aggregate
+forEach: ReadModel
 path: {{boundedContext.name}}/src/test/java/com/example/template
 fileName: RestBase.java
 except: {{#attached "Command" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
