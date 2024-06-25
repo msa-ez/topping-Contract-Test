@@ -44,3 +44,11 @@ public abstract class MessagingBase {
                 .build(), "eventTopic");
     }
 }
+<function>
+    window.$HandleBars.registerHelper('checkIncoming', function (source) {
+        if(source.type == 'Policy' && sourc.examples){
+            return false;
+        } 
+        return true;
+    })
+</function>
