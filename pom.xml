@@ -99,7 +99,6 @@
 			<scope>test</scope>
 		</dependency>
 		{{/if}}
-		{{/outgoingRelations}}
 		{{#if aggregateList}}
 		<!-- test -->
 		<dependency>
@@ -109,6 +108,7 @@
 		</dependency>
 		{{/if}}
 		{{/target}}
+		{{/outgoingRelations}}
 		{{#incomingRelations}}
 		{{#source}}
 		{{#if aggregate}}
