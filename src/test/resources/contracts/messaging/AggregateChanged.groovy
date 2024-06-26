@@ -60,16 +60,16 @@ Contract.make {
             }
         }
         switch (type) {
-            case 'string':
+            case 'String':
             return quote + value + quote; // Java에서 문자열은 큰따옴표를 사용합니다.
             case 'Long':
             // JavaScript의 숫자는 정수 또는 부동소수점일 수 있으므로 이를 구분해야 할 수도 있습니다.
                 return `${value}L`; // long 타입으로 간주할 수 있습니다.
             case 'Integer':
                 return `${value}`; 
-            case 'boolean':
+            case 'Boolean':
             return value.toString();
-            case 'object':
+            case 'Object':
             if (value instanceof Date) {
                 return `new Date(${value.getTime()}L)`; // Java의 Date 생성자를 사용합니다.
             } else if (value === null) {
