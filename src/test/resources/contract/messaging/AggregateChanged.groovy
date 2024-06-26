@@ -8,7 +8,7 @@ import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
     // The Identifier which can be used to identify it later.
-    label '{{#attached "Event" this}}{{namePascalCase}}{{/attached}}'
+    label '{{#attached "Policy" this}}{{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/incomingRelations}}{{/attached}}'
     input {
         // Contract will be triggered by the following method.
         triggeredBy('{{#attached "Event" this}}{{nameCamelCase}}{{/attached}}()')
