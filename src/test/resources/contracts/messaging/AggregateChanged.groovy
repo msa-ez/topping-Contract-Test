@@ -62,13 +62,11 @@ Contract.make {
         switch (type) {
             case 'string':
             return quote + value + quote; // Java에서 문자열은 큰따옴표를 사용합니다.
-            case 'number':
+            case 'Long':
             // JavaScript의 숫자는 정수 또는 부동소수점일 수 있으므로 이를 구분해야 할 수도 있습니다.
-            if (Number.isSafeInteger(value)) {
                 return `${value}L`; // long 타입으로 간주할 수 있습니다.
-            } else {
-                return `${value}`; // double 타입으로 간주할 수 있습니다.
-            }
+            case 'Integer':
+                return `${value}`; 
             case 'boolean':
             return value.toString();
             case 'object':
