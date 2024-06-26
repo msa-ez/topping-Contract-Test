@@ -1,6 +1,6 @@
 forEach: Policy
 except: {{#checkExample examples}}{{/checkExample}}
-path: {{#incoming "Event" this}}{{aggregate.nameCamelCase}}{{/incoming}}/test/java/com/example/template
+path: {{#incoming "Event" this}}{{aggregate.nameCamelCase}}{{/incoming}}/src/test/java/com/example/template
 ---
 package com.example.template;
 
