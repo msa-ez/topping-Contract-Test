@@ -1,5 +1,5 @@
 forEach: Aggregate
-except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
+except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkIncoming target}}{{/checkIncoming}}{{/outgoingRelations}}{{/attached}}
 ---
 package com.example.template;
 
@@ -64,8 +64,8 @@ public abstract class MessagingBase {
     }
 }
 <function>
-    window.$HandleBars.registerHelper('checkIncoming', function (source) {
-        if(source.type == 'Policy' && source.examples){
+    window.$HandleBars.registerHelper('checkIncoming', function (target) {
+        if(target.type == 'Policy' && target.examples){
             return false;
         } 
         return true;
