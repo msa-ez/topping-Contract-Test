@@ -87,7 +87,7 @@ Contract.make {
             throw new Error(`Unsupported type: ${type}`);
         }
     })
-    window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList, aggregate) {
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, incoming) {
         var type = 'String'
         for(var i = 0; i < incoming.length; i++){
             for(var j = 0; j< incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
