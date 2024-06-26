@@ -46,7 +46,10 @@ Contract.make {
 }
 <function>
     window.$HandleBars.registerHelper('checkIncoming', function (source) {
-        if(!source.aggregateList || !source.examples) return true;
+        if(source.type == 'Policy' && source.examples){
+            return false;
+        } 
+        return true;
     })
     window.$HandleBars.registerHelper('checkExampleType', function (key, value, incoming) {
         var type = 'String';
