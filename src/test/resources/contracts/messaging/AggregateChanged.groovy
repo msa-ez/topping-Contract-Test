@@ -23,7 +23,7 @@ Contract.make {
             {{#examples}}
             {{#when}}
             {{#each value}}
-                {{@key}}: {{#checkExampleType @key this ../../../../incomingRelations}}{{/checkExampleType}},
+                {{@key}}: {{#checkExampleType @key this ../../../incomingRelations}}{{/checkExampleType}},
             {{/each}}
             {{/when}}
             {{/examples}}
@@ -34,7 +34,7 @@ Contract.make {
             {{#examples}}
             {{#when}}
             {{#each value}}
-            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../../incomingRelations.source.aggregate}}{{/setExampleType}}())
+            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../incomingRelations}}{{/setExampleType}}())
             {{/each}}
             {{/when}}
             {{/examples}}
@@ -54,8 +54,8 @@ Contract.make {
         var quote = "'";
         for(var i = 0; i < incoming.length; i++){
             for(var j = 0; j< incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
-                if(aggregate[i].aggregateRoot.fieldDescriptors[j].name == key){
-                    type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
+                if(incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].name == key){
+                    type = incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].className
                 }
             }
         }
@@ -91,12 +91,10 @@ Contract.make {
     })
     window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList, aggregate) {
         var type = 'String'
-        if(aggregateList){
-            for(var i = 0; i < aggregateList.length; i++){
-                for(var j = 0; j< aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
-                    if(aggregateList[i].aggregateRoot.fieldDescriptors[j].name == key){
-                        type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
-                    }
+        for(var i = 0; i < incoming.length; i++){
+            for(var j = 0; j< incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
+                if(incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].name == key){
+                    type = incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].className
                 }
             }
         }
