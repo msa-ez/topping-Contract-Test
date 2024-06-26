@@ -1,24 +1,24 @@
-forEach: Aggregate
-fileName: '{{#attached "Policy" this}}{{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/incomingRelations}}{{/attached}}'.groovy
-except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
+forEach: Policy
+fileName: {{#incoming "Event" this}}{{namePascalCase}}{{/incoming}}.groovy
+except: {{#checkExample examples}}{{/checkExample}}
+path: {{#aggregateList}}{{nameCamelCase}}{{/aggregateList}}/src/test/resources/contracts/messaging
 ---
 package contracts.messaging
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
     // The Identifier which can be used to identify it later.
-    label '{{#attached "Policy" this}}{{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/incomingRelations}}{{/attached}}'
+    label '{{#incoming "Event" this}}{{namePascalCase}}{{/incoming}}'
     input {
         // Contract will be triggered by the following method.
-        triggeredBy(''{{#attached "Policy" this}}{{#incomingRelations}}{{#source}}{{nameCamelCase}}{{/source}}{{/incomingRelations}}{{/attached}}'()')
+        triggeredBy('{{#incoming "Event" this}}{{nameCamelCase}}{{/incoming}}()')
     }
     outputMessage {
         sentTo 'eventTopic'
         // Consumer Expected Payload spec. that a JSON message must have, 
         // If the Producer-side test is OK, then send the following msg to event-out channel.
         body(
-            eventType: "'{{#attached "Policy" this}}{{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/incomingRelations}}{{/attached}}'",
-            {{#attached "Policy" this}}
+            eventType: "'{{#incoming "Event" this}}{{namePascalCase}}{{/incoming}}'",
             {{#examples}}
             {{#when}}
             {{#each value}}
@@ -26,10 +26,8 @@ Contract.make {
             {{/each}}
             {{/when}}
             {{/examples}}
-            {{/attached}}
         )
         bodyMatchers {
-            {{#attached "Policy" this}}
             {{#examples}}
             {{#when}}
             {{#each value}}
@@ -37,7 +35,6 @@ Contract.make {
             {{/each}}
             {{/when}}
             {{/examples}}
-            {{/attached}}
         }
         headers {
             messagingContentType(applicationJson())
@@ -45,11 +42,8 @@ Contract.make {
     }
 }
 <function>
-    window.$HandleBars.registerHelper('checkIncoming', function (source) {
-        if(source.type == 'Policy' && source.examples){
-            return false;
-        } 
-        return true;
+    window.$HandleBars.registerHelper('checkExample', function (examples) {
+        if(examples) return false;
     })
     window.$HandleBars.registerHelper('checkExampleType', function (key, value, incoming) {
         var type = 'String';
