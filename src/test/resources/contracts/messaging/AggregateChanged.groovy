@@ -23,7 +23,7 @@ Contract.make {
             {{#examples}}
             {{#when}}
             {{#each value}}
-                {{@key}}: {{#checkExampleType @key this ../../../../incomingRelations.source.aggregate}}{{/checkExampleType}},
+                {{@key}}: {{#checkExampleType @key this ../../../../incomingRelations}}{{/checkExampleType}},
             {{/each}}
             {{/when}}
             {{/examples}}
@@ -49,11 +49,11 @@ Contract.make {
     window.$HandleBars.registerHelper('checkIncoming', function (source) {
         if(!source.aggregateList || !source.examples) return true;
     })
-    window.$HandleBars.registerHelper('checkExampleType', function (key, value, aggregate) {
+    window.$HandleBars.registerHelper('checkExampleType', function (key, value, incoming) {
         var type = 'String';
         var quote = "'";
-        for(var i = 0; i < aggregate.length; i++){
-            for(var j = 0; j< aggregate[i].aggregateRoot.fieldDescriptors.length; j++){
+        for(var i = 0; i < incoming.length; i++){
+            for(var j = 0; j< incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
                 if(aggregate[i].aggregateRoot.fieldDescriptors[j].name == key){
                     type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
                 }
