@@ -1,6 +1,6 @@
 forEach: ReadModel
 fileName: {{nameCamelCase}}Get.groovy
-except: {{^incoming "Command" this}}{{/incoming}}
+except: {{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}
 ---
 package contracts.rest
 
@@ -49,13 +49,9 @@ org.springframework.cloud.contract.spec.Contract.make {
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkTarget', function (target) {
-    if(!target) return true;
-    if(target.type == 'View' || target.type == 'ReadModel'){
-        return false;
-    }
-    return true;
-})
+    window.$HandleBars.registerHelper('checkIncoming', function (source) {
+        if(source.type == 'Command') return false;
+    })
 
     window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList, aggregate) {
         var type = 'String'

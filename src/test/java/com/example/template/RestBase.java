@@ -1,7 +1,7 @@
 forEach: ReadModel
 path: {{boundedContext.name}}/src/test/java/com/example/template
 fileName: RestBase.java
-except: {{#attached "Command" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
+except: {{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}
 ---
 package com.example.template;
 
@@ -41,11 +41,7 @@ public class RestBase {
     }
 }
 <function>
-window.$HandleBars.registerHelper('checkTarget', function (target) {
-    if(!target) return true;
-    if(target.type == 'View' || target.type == 'ReadModel'){
-        return false;
-    }
-    return true;
-})
+    window.$HandleBars.registerHelper('checkIncoming', function (source) {
+        if(source.type == 'Command') return false;
+    })
 </function>
