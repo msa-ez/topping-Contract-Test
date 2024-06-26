@@ -39,6 +39,20 @@ public abstract class MessagingBase {
     }
 
     public void {{#incoming "Event" this}}{{namePascalCase}}{{/incoming}}() {
+        {{#incoming "Event" this}}
+        {{#aggregate}}
+        {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
+
+        {{#aggregateRoot.fieldDescriptors}}
+        {{../../nameCamelCase}}.set{{namePascalCase}}({{#../../../examples}}{{#when}}{{#each value}}{{#checkExampleType @key this ../../../incomingRelations}}{{/checkExampleType}}{{/each}}{{/when}}{{/../../../examples}})
+        {{/aggregateRoot.fieldDescriptors}}
+
+        {{../namePascalCase}} {{../nameCamelCase}} = new {{../namePascalCase}}({{nameCamelCase}});
+        // orderPlaced.setEventType("OrderPlaced");
+            
+        serializedJson = {{../nameCamelCase}}.toJson();
+        {{/aggregate}}
+        {{/incoming}}
 
         this.messaging.send(MessageBuilder
                 .withPayload(serializedJson)
