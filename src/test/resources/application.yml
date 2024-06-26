@@ -41,8 +41,8 @@ api:
 <function>
     window.$HandleBars.registerHelper('checkOutgoing', function (target) {
         if(source.type == 'Policy' && source.examples){
-            return false;
+            return true;
         } 
-        return true;
+        return false;
     })
 </function>
