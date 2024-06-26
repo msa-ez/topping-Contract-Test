@@ -44,7 +44,7 @@ public abstract class MessagingBase {
         {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
 
         {{#aggregateRoot.fieldDescriptors}}
-        {{#aggregateRoot.fieldDescriptors}}{{../nameCamelCase}}.set{{namePascalCase}}{{/aggregateRoot.fieldDescriptors}}({{#../../../examples}}{{#when}}{{#checkExampleType value ../../../../../incomingRelations}}{{/checkExampleType}}{{/when}}{{/../../../examples}})
+        {{../nameCamelCase}}.set{{namePascalCase}}({{#../../../examples}}{{#when}}{{#checkExampleType value ../../../../../incomingRelations}}{{/checkExampleType}}{{/when}}{{/../../../examples}})
         {{/aggregateRoot.fieldDescriptors}}
 
         {{../namePascalCase}} {{../nameCamelCase}} = new {{../namePascalCase}}({{nameCamelCase}});
