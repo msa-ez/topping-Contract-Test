@@ -1,6 +1,6 @@
 path: {{nameCamelCase}}/src/test/resources
 fileName: application.yml
-except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
+except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
 ---
 server:
   port: 8080
@@ -39,7 +39,10 @@ api:
     {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}: "http://localhost:8090"
 
 <function>
-    window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
-        if(!relation) return true;
+    window.$HandleBars.registerHelper('checkOutgoing', function (target) {
+        if(source.type == 'Policy' && source.examples){
+            return false;
+        } 
+        return true;
     })
 </function>
