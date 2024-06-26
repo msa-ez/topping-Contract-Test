@@ -1,5 +1,6 @@
-forEach: Aggregate
-except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkIncoming target}}{{/checkIncoming}}{{/outgoingRelations}}{{/attached}}
+forEach: Policy
+except: {{#checkExample examples}}{{/checkExample}}
+path: {{#incoming "Event" this}}{{aggregate.nameCamelCase}}{{/incoming}}/test/java/com/example/template
 ---
 package com.example.template;
 
@@ -19,12 +20,12 @@ import {{options.package}}.infra.{{namePascalCase}}Controller;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class) 
-@SpringBootTest(classes = {{namePascalCase}}Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(classes = {{#incoming "Event" this}}{{aggregate.namePascalCase}}{{/incoming}}Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureMessageVerifier
 public abstract class MessagingBase {
 
     @Autowired
-    {{namePascalCase}}Controller {{nameCamelCase}}Controller;
+    {{#incoming "Event" this}}{{aggregate.namePascalCase}}Controller {{aggregate.nameCamelCase}}Controller;{{/incoming}}
 
     @Autowired
     // Message interface to verify Contracts between services.
@@ -37,25 +38,7 @@ public abstract class MessagingBase {
         this.messaging.receive("eventTopic", 100, TimeUnit.MILLISECONDS);
     }
 
-    public void {{#attached "Policy" this}}{{#incomingRelations}}{{#source}}{{nameCamelCase}}{{/source}}{{/incomingRelations}}{{/attached}}() {
-        {{#attached "Policy" this}}
-        {{#incomingRelations}}
-        {{#source}}
-        {{#aggregate}}
-        {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
-
-        {{#aggregateRoot.fieldDescriptors}}
-        {{../../nameCamelCase}}.set{{namePascalCase}}({{#../../../attached}}{{#target}}{{#examples}}{{#when}}{{#each value}}{{#checkExampleType @key this ../../../incomingRelations}}{{/checkExampleType}}{{/each}}{{/when}}{{/examples}}{{/target}}{{/../../../attached}})
-        {{/aggregateRoot.fieldDescriptors}}
-
-        {{../namePascalCase}} {{../nameCamelCase}} = new {{../namePascalCase}}({{nameCamelCase}});
-        // orderPlaced.setEventType("OrderPlaced");
-            
-        serializedJson = {{../nameCamelCase}}.toJson();
-        {{/aggregate}}
-        {{/source}}
-        {{/incomingRelations}}
-        {{/attached}}
+    public void {{#incoming "Event" this}}{{namePascalCase}}{{/incoming}}() {
 
         this.messaging.send(MessageBuilder
                 .withPayload(serializedJson)
@@ -64,11 +47,8 @@ public abstract class MessagingBase {
     }
 }
 <function>
-    window.$HandleBars.registerHelper('checkIncoming', function (target) {
-        if(target.type == 'Policy' && target.examples){
-            return false;
-        } 
-        return true;
+    window.$HandleBars.registerHelper('checkExample', function (examples) {
+        if(examples) return false;
     })
     window.$HandleBars.registerHelper('checkExampleType', function (key, value, incoming) {
         var type = 'String';
