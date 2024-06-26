@@ -23,7 +23,7 @@ Contract.make {
             {{#examples}}
             {{#when}}
             {{#each value}}
-                {{@key}}: {{#checkExampleType @key this ../../../incomingRelations.source.aggregate}}{{/checkExampleType}},
+                {{@key}}: {{#checkExampleType @key this ../../../../incomingRelations.source.aggregate}}{{/checkExampleType}},
             {{/each}}
             {{/when}}
             {{/examples}}
