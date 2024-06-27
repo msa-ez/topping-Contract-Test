@@ -68,7 +68,7 @@ public abstract class MessagingBase {
     window.$HandleBars.registerHelper('checkExample', function (examples) {
         if(examples) return false;
     })
-    window.$HandleBars.registerHelper('checkExampleType', function (value, incoming) {
+    window.$HandleBars.registerHelper('checkExampleType', function (key, value, incoming) {
         var type = 'String';
         var quote = "'";
         for(var i = 0; i < incoming.length; i++){
