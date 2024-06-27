@@ -122,7 +122,9 @@
 		</dependency>
 		{{/if}}
 		{{/if}}
-		{{#if aggregateList}}
+		{{/source}}
+		{{/incomingRelations}}
+		{{/attached}}
 		<!-- Support testing your microservice without connecting to a messaging system. -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -137,10 +139,12 @@
 			<version>${spring-cloud-contract.version}</version>
 			<scope>test</scope>
 		</dependency>
-		{{/if}}
-		{{/source}}
-		{{/incomingRelations}}
-		{{/attached}}
+		<!-- tag::stubrunner[] -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -179,6 +183,10 @@
 			</plugin>
 			{{/if}}
 			{{/if}}
+			{{/source}}
+			{{/incomingRelations}}
+			{{#outgoingRelations}}
+			{{#target}}
 			{{#if aggregateList}}
 			<!-- SPRING CLOUD CONTRACT -->
 			<plugin>
@@ -198,9 +206,9 @@
 				</configuration>
 			</plugin>
 			<!-- SPRING CLOUD CONTRACT -->
-			{{/if}}
-			{{/source}}
-			{{/incomingRelations}}
+			{{/if aggregateList}}
+			{{/target}}
+			{{/outgoinfRelations}}
 			{{/attached}}
 		</plugins>
 		
