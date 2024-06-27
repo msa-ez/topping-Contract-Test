@@ -208,7 +208,7 @@
 			<!-- SPRING CLOUD CONTRACT -->
 			{{/if}}
 			{{/target}}
-			{{/outgoinfRelations}}
+			{{/outgoingRelations}}
 			{{/attached}}
 		</plugins>
 		
