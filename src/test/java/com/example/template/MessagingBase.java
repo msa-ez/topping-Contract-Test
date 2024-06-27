@@ -46,7 +46,7 @@ public abstract class MessagingBase {
         {{#../../examples}}
         {{#when}}
         {{#each value}}
-        {{#setAggExample @key this ../../../incomingRelations}}{{/setAggExample}};
+        {{#setAggExample @key this ../../../../../incomingRelations}}{{/setAggExample}};
         {{/each}}
         {{/when}}
         {{/../../examples}}
