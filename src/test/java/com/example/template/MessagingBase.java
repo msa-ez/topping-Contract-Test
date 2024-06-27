@@ -70,7 +70,7 @@ public abstract class MessagingBase {
     })
     window.$HandleBars.registerHelper('setAggExample', function (key, value, incoming) {
         var examplesType = 'String';
-        var quote = "'";
+        var doubleQuote = "\"";
         var aggName = null;
         for(var i = 0; i < incoming.length; i++){
             aggName = incoming[i].source.aggregate.nameCamelCase + ".set" + key.substring(0, 1).toUpperCase() + key.substring(1)
@@ -83,7 +83,7 @@ public abstract class MessagingBase {
         
         switch (examplesType) {
             case 'String':
-            return aggName + '(' + quote + value + quote + ')'; 
+            return aggName + '(' + doubleQuote + value + doubleQuote + ')'; 
             case 'Long':
                 return aggName + '(' + `${value}L` + ')'; 
             case 'Integer':

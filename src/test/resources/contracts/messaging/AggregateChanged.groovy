@@ -46,8 +46,8 @@ Contract.make {
         if(examples) return false;
     })
     window.$HandleBars.registerHelper('checkExampleType', function (key, value, incoming) {
-        var type = 'String';
-        var quote = "'";
+        var type = "\"";
+        var doubleQuote = "'";
         for(var i = 0; i < incoming.length; i++){
             for(var j = 0; j< incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
                 if(incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].name == key){
@@ -57,7 +57,7 @@ Contract.make {
         }
         switch (type) {
             case 'String':
-            return quote + value + quote; // Java에서 문자열은 큰따옴표를 사용합니다.
+            return doubleQuote + value + doubleQuote; // Java에서 문자열은 큰따옴표를 사용합니다.
             case 'Long':
             // JavaScript의 숫자는 정수 또는 부동소수점일 수 있으므로 이를 구분해야 할 수도 있습니다.
                 return `${value}`; // long 타입으로 간주할 수 있습니다.
