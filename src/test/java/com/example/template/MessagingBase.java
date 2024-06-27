@@ -82,6 +82,7 @@ public abstract class MessagingBase {
                     }
                 }
             }
+    
             switch (type) {
                 case 'String':
                     result[key] = quote + value[key] + quote; // Java에서 문자열은 큰따옴표를 사용합니다.
@@ -103,6 +104,9 @@ public abstract class MessagingBase {
                     } else if (Array.isArray(value[key])) {
                         const elements = value[key].map((element) => convertToJavaSyntax(element)).join(', ');
                         result[key] = `new Object[]{${elements}}`; // Object 배열로 간주합니다.
+                    } else if (typeof value[key] === 'object') {
+                        // 객체를 JSON 문자열로 변환
+                        result[key] = JSON.stringify(value[key]);
                     } else {
                         result[key] = value[key].toString(); // 기본적인 toString 반환을 사용합니다.
                     }
