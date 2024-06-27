@@ -73,7 +73,7 @@ public abstract class MessagingBase {
         var quote = "'";
         var aggName = null;
         for(var i = 0; i < incoming.length; i++){
-            aggName = incoming[i].source.aggregate.nameCamelCase; + ' set' + key.substring(0, 1).toUpperCase() + key.substring(1)
+            aggName = incoming[i].source.aggregate.nameCamelCase + " set" + key.substring(0, 1).toUpperCase() + key.substring(1)
             for(var j = 0; j< incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
                 if(incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].name == key){
                     examplesType = incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].className
