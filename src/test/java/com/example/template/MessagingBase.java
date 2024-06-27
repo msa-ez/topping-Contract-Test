@@ -46,7 +46,7 @@ public abstract class MessagingBase {
         {{#aggregateRoot.fieldDescriptors}}
         {{#../../../examples}}
         {{#when}}
-        {{../../../nameCamelCase}}.set{{../../namePascalCase}}({{#each value}}{{#checkExampleType @key this ../../../../../../incomingRelations}}{{/checkExampleType}}{{/each}});
+        {{../../../nameCamelCase}}.set{{../../namePascalCase}}({{#checkExampleType value ../../../../../../incomingRelations}}{{/checkExampleType}});
         {{/when}}
         {{/../../../examples}}
         {{/aggregateRoot.fieldDescriptors}}
@@ -68,7 +68,7 @@ public abstract class MessagingBase {
     window.$HandleBars.registerHelper('checkExample', function (examples) {
         if(examples) return false;
     })
-    window.$HandleBars.registerHelper('checkExampleType', function (key, value, incoming) {
+    window.$HandleBars.registerHelper('checkExampleType', function (value, incoming) {
         var type = 'String';
         var quote = "'";
         for(var i = 0; i < incoming.length; i++){
