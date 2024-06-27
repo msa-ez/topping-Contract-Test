@@ -69,7 +69,7 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
 
 <function>
     window.$HandleBars.registerHelper('checkTarget', function (target) {
-        if(target.type == 'Policy' && target.examples){
+        if(target.type == 'Policy' || !target.examples){
             return true;
         }
     })
