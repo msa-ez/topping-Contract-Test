@@ -206,7 +206,7 @@
 				</configuration>
 			</plugin>
 			<!-- SPRING CLOUD CONTRACT -->
-			{{/if aggregateList}}
+			{{/if}}
 			{{/target}}
 			{{/outgoinfRelations}}
 			{{/attached}}
