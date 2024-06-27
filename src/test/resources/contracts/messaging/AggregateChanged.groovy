@@ -18,7 +18,7 @@ Contract.make {
         // Consumer Expected Payload spec. that a JSON message must have, 
         // If the Producer-side test is OK, then send the following msg to event-out channel.
         body(
-            eventType: "'{{#incoming "Event" this}}{{namePascalCase}}{{/incoming}}'",
+            eventType: "{{#incoming "Event" this}}{{namePascalCase}}{{/incoming}}",
             {{#examples}}
             {{#when}}
             {{#each value}}
@@ -31,7 +31,7 @@ Contract.make {
             {{#examples}}
             {{#when}}
             {{#each value}}
-            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../incomingRelations}}{{/setExampleType}}())
+            jsonPath('$.{{pascalCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../incomingRelations}}{{/setExampleType}}())
             {{/each}}
             {{/when}}
             {{/examples}}
