@@ -46,7 +46,7 @@ public abstract class MessagingBase {
         {{#aggregateRoot.fieldDescriptors}}
         {{#../../../examples}}
         {{#when}}
-        {{../../../nameCamelCase}}.set{{../../namePascalCase}}({{#checkExampleType value ../../../../../../incomingRelations}}{{/checkExampleType}});
+        {{../../../nameCamelCase}}.set{{../../namePascalCase}}{{#each value}}({{#checkExampleType @key this ../../../../../../incomingRelations}}{{/each}}{{/checkExampleType}});
         {{/when}}
         {{/../../../examples}}
         {{/aggregateRoot.fieldDescriptors}}
@@ -113,6 +113,7 @@ public abstract class MessagingBase {
             for(var j = 0; j< incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
                 if(incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].name == key){
                     type = incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].className
+                    break;
                 }
             }
         }
