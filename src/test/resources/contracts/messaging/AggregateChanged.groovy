@@ -46,8 +46,8 @@ Contract.make {
         if(examples) return false;
     })
     window.$HandleBars.registerHelper('checkExampleType', function (key, value, incoming) {
-        var type = "\"";
-        var doubleQuote = "'";
+        var type = 'String'
+        var doubleQuote = "\"";
         for(var i = 0; i < incoming.length; i++){
             for(var j = 0; j< incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
                 if(incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].name == key){
