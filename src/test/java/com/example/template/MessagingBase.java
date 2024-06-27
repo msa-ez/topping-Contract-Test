@@ -62,46 +62,44 @@ public abstract class MessagingBase {
     window.$HandleBars.registerHelper('checkExample', function (examples) {
         if(examples) return false;
     })
-    window.$HandleBars.registerHelper('checkExampleType', function (value, incoming) {
+    window.$HandleBars.registerHelper('checkExampleType', function (key, value, incoming) {
         var type = 'String';
         var quote = "'";
-        Object.entries(value).forEach(([key, val]) => {
-            for(var i = 0; i < incoming.length; i++){
-                for(var j = 0; j< incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
-                    if(incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].name == key){
-                        type = incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].className
-                    }
+        for(var i = 0; i < incoming.length; i++){
+            for(var j = 0; j< incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
+                if(incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].name == key){
+                    type = incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].className
                 }
             }
+        }
         
-            switch (type) {
-                case 'String':
-                return quote + val + quote; // Java에서 문자열은 큰따옴표를 사용합니다.
-                case 'Long':
-                // JavaScript의 숫자는 정수 또는 부동소수점일 수 있으므로 이를 구분해야 할 수도 있습니다.
-                    return `${val}L`; // long 타입으로 간주할 수 있습니다.
-                case 'Integer':
-                    return `${val}`; 
-                case 'Boolean':
-                return val.toString();
-                case 'Object':
-                if (val instanceof Date) {
-                    return `new Date(${val.getTime()}L)`; // Java의 Date 생성자를 사용합니다.
-                } else if (val === null) {
-                    return 'null';
-                } else if (Array.isArray(val)) {
-                    // 배열의 경우 더 복잡한 로직이 필요할 수 있으며, 이는 예시로만 제공됩니다.
-                    const elements = val.map((element) => convertToJavaSyntax(element)).join(', ');
-                    return `new Object[]{${elements}}`; // Object 배열로 간주합니다.
-                } else {
-                    // 다른 종류의 객체에 대한 처리가 필요할 수 있습니다.
-                    // 이 경우 해당 객체를 적절한 Java 표현으로 변환하는 로직이 필요합니다.
-                    return val.toString(); // 기본적인 toString 반환을 사용합니다.
-                }
-                default:
-                throw new Error(`Unsupported type: ${type}`);
+        switch (type) {
+            case 'String':
+            return quote + value + quote; // Java에서 문자열은 큰따옴표를 사용합니다.
+            case 'Long':
+            // JavaScript의 숫자는 정수 또는 부동소수점일 수 있으므로 이를 구분해야 할 수도 있습니다.
+                return `${value}L`; // long 타입으로 간주할 수 있습니다.
+            case 'Integer':
+                return `${value}`; 
+            case 'Boolean':
+            return value.toString();
+            case 'Object':
+            if (value instanceof Date) {
+                return `new Date(${value.getTime()}L)`; // Java의 Date 생성자를 사용합니다.
+            } else if (value === null) {
+                return 'null';
+            } else if (Array.isArray(value)) {
+                // 배열의 경우 더 복잡한 로직이 필요할 수 있으며, 이는 예시로만 제공됩니다.
+                const elements = value.map((element) => convertToJavaSyntax(element)).join(', ');
+                return `new Object[]{${elements}}`; // Object 배열로 간주합니다.
+            } else {
+                // 다른 종류의 객체에 대한 처리가 필요할 수 있습니다.
+                // 이 경우 해당 객체를 적절한 Java 표현으로 변환하는 로직이 필요합니다.
+                return value.toString(); // 기본적인 toString 반환을 사용합니다.
             }
-        });
+            default:
+            throw new Error(`Unsupported type: ${type}`);
+        }
     })
     window.$HandleBars.registerHelper('setExampleType', function (key, value, incoming) {
         var type = 'String'
