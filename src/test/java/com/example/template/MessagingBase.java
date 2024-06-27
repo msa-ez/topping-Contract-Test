@@ -42,8 +42,14 @@ public abstract class MessagingBase {
         {{#incoming "Event" this}}
         {{#aggregate}}
         {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
-        {{#aggregateRoot.fieldDescriptors}}{{../nameCamelCase}}.set{{namePascalCase}}{{/aggregateRoot.fieldDescriptors}}({{#../../examples}}{{#when}}{{#each value}}{{#checkExampleType @key this ../../../../../incomingRelations}}{{/checkExampleType}}{{/each}}{{/when}}{{/../../examples}});
-        
+
+        {{#aggregateRoot.fieldDescriptors}}
+        {{#../../../examples}}
+        {{#when}}
+        {{../../../../../nameCamelCase}}.set{{../../../../namePascalCase}}({{#each value}}{{#checkExampleType @key this ../../../../../../incomingRelations}}{{/checkExampleType}}{{/each}});
+        {{/when}}
+        {{/../../../examples}}
+        {{/aggregateRoot.fieldDescriptors}}
 
         {{../namePascalCase}} {{../nameCamelCase}} = new {{../namePascalCase}}({{nameCamelCase}});
         // orderPlaced.setEventType("OrderPlaced");
