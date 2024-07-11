@@ -1,7 +1,7 @@
-forEach: Aggregate
+forEach: Command
 path: {{boundedContext.name}}/src/test/java/com/example/template
 fileName: RestBase.java
-except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
+except: {{#checkExample examples}}{{/checkExample}}
 ---
 package com.example.template;
 
@@ -22,18 +22,18 @@ import {{options.package}}.{{namePascalCase}}Application;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {{namePascalCase}}Application.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {{aggregate.namePascalCase}}Application.class)
 @AutoConfigureMockMvc
 @Import(TestDataConfig.class)
 public class RestBase {
 
     @Autowired
-    private {{namePascalCase}}Controller {{nameCamelCase}}Controller;
+    private {{aggregate.namePascalCase}}Controller {{aggregate.nameCamelCase}}Controller;
 
     @Before
     public void setup() {
         StandaloneMockMvcBuilder standaloneMockMvcBuilder = MockMvcBuilders.standaloneSetup(
-            {{nameCamelCase}}Controller
+            {{aggregate.nameCamelCase}}Controller
         ).addFilters(new CharacterEncodingFilter("UTF-8", true)); 
 
         RestAssuredMockMvc.standaloneSetup(standaloneMockMvcBuilder);
@@ -41,8 +41,8 @@ public class RestBase {
     }
 }
 <function>
-    window.$HandleBars.registerHelper('checkIncoming', function (source) {
-        if(source.type == 'Command' && source.examples){
+    window.$HandleBars.registerHelper('checkExample', function (examples) {
+        if(examples){
             return false;
         } 
         return true;

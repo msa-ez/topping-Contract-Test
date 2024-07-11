@@ -1,44 +1,38 @@
-forEach: Aggregate
-path:  {{boundedContext.name}}/src/test/java/com/example/template
-except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
+forEach: Command
+path: {{boundedContext.name}}/src/test/java/com/example/template
+except: {{#checkExample examples}}{{/checkExample}}
 ---
 package com.example.template;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
-import {{options.package}}.domain.{{namePascalCase}};
-import {{options.package}}.domain.{{namePascalCase}}Repository;
+import {{options.package}}.domain.{{aggregate.namePascalCase}};
+import {{options.package}}.domain.{{aggregate.namePascalCase}}Repository;
 
 
 @TestConfiguration
 public class TestDataConfig {
 
     @Bean
-    public CommandLineRunner initData({{namePascalCase}}Repository repository) {
+    public CommandLineRunner initData({{aggregate.namePascalCase}}Repository repository) {
         return args -> {
-            {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
-            {{#attached "Event" this}}
-            {{#incomingRelations}}
-            {{#source}}
+            {{aggregate.namePascalCase}} {{aggregate.nameCamelCase}} = new {{aggregate.namePascalCase}}();
             {{#examples}}
             {{#given}}
             {{#each value}}
-            {{../../../../../../nameCamelCase}}.set{{pascalCase @key}}({{#compareAndSetType @key this ../../../../../../aggregateRoot.fieldDescriptors}}{{/compareAndSetType}});
+            {{../../../aggregate.nameCamelCase}}.set{{pascalCase @key}}({{#compareAndSetType @key this ../../../aggregate.aggregateRoot.fieldDescriptors}}{{/compareAndSetType}});
             {{/each}}
             {{/given}}
             {{/examples}}
-            {{/source}}
-            {{/incomingRelations}}
-            {{/attached}}
-            repository.save({{nameCamelCase}});
+            repository.save({{aggregate.nameCamelCase}});
         };
     }
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkIncoming', function (source) {
-        if(source.type == 'Command' && source.examples){
+    window.$HandleBars.registerHelper('checkExample', function (examples) {
+        if(examples){
             return false;
         } 
         return true;
