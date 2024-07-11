@@ -1,6 +1,6 @@
 forEach: Command
 fileName: {{nameCamelCase}}Get.groovy
-path: /{{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}
+path: {{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}
 except: {{#checkExample examples}}{{/checkExample}}
 ---
 package contracts.rest
@@ -43,7 +43,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#then}}
             {{#each value}}
-            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this aggregate}}{{/setExampleType}}())
+            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../aggregate}}{{/setExampleType}}())
             {{/each}}
             {{/then}}
             {{/examples}}
