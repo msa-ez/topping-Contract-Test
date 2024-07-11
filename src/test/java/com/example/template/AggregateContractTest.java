@@ -1,5 +1,5 @@
 forEach: Aggregate
-fileName: {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}ContractTest.java
+fileName: {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#aggregate}}{{namePascalCase}}{{/aggregate}}{{/target}}{{/outgoingRelations}}{{/attached}}ContractTest.java
 path: {{boundedContext.name}}/src/test/java/com/example/template
 except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
 ---
@@ -69,8 +69,8 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
 
 <function>
     window.$HandleBars.registerHelper('checkTarget', function (target) {
-        if(target.type == 'Policy' || !target.examples){
-            return true;
+        if(target.type == 'Command' && target.examples){
+            return false;
         }
     })
 
