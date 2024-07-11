@@ -1,5 +1,5 @@
 forEach: Command
-path: /src/test/java/com/example/template
+path: src/test/java/com/example/template
 except: {{#checkExample examples}}{{/checkExample}}
 ---
 package com.example.template;

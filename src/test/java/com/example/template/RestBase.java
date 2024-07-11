@@ -1,5 +1,5 @@
 forEach: Command
-path: /src/test/java/com/example/template
+path: src/test/java/com/example/template
 fileName: RestBase.java
 except: {{#checkExample this examples}}{{/checkExample}}
 ---
