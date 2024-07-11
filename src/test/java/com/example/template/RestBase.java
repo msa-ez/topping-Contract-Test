@@ -42,7 +42,7 @@ public class RestBase {
 }
 <function>
     window.$HandleBars.registerHelper('checkExample', function (type, examples) {
-        if(examples){
+        if(examples && examples[0].when[0].value.id != "N/A"){
             return false;
         } 
         return true;

@@ -1,6 +1,6 @@
 forEach: Command
 path: {{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}/src/test/java/com/example/template
-except: {{#checkExample examples}}{{/checkExample}}
+except: {{#checkExample this examples}}{{/checkExample}}
 ---
 package com.example.template;
 import org.springframework.boot.CommandLineRunner;
@@ -31,8 +31,8 @@ public class TestDataConfig {
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkExample', function (examples) {
-        if(examples){
+    window.$HandleBars.registerHelper('checkExample', function (type, examples) {
+        if(examples && examples[0].when[0].value.id != "N/A"){
             return false;
         } 
         return true;
