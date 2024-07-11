@@ -8,7 +8,7 @@ package contracts.rest
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method '{{controllerInfo.method}}'
-        url ('/{{aggregate.namePlural}}/1{{#checkExtendVerbType controller.method controllerInfo.apiPath}}{{/checkExtendVerbType}}')
+        url ('/{{aggregate.namePlural}}{{#checkExtendVerbType controller.method controllerInfo.apiPath}}{{/checkExtendVerbType}}')
         headers {
             contentType(applicationJsonUtf8())
         }
