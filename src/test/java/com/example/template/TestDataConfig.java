@@ -32,7 +32,7 @@ public class TestDataConfig {
 
 <function>
     window.$HandleBars.registerHelper('checkExample', function (type, examples) {
-        if(examples && examples[0].when[0].value.id != "N/A"){
+        if(examples && examples[0].when[0].value.id){
             return false;
         } 
         return true;
