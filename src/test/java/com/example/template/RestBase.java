@@ -1,6 +1,6 @@
 forEach: Command
 fileName: RestBase.java
-except: {{#checkExample this examples}}{{/checkExample}}
+except: {{#checkExample examples}}{{/checkExample}}
 ---
 package com.example.template;
 
@@ -40,7 +40,7 @@ public class RestBase {
     }
 }
 <function>
-    window.$HandleBars.registerHelper('checkExample', function (type, examples) {
+    window.$HandleBars.registerHelper('checkExample', function (examples) {
         if(examples && examples[0].when[0].value.id){
             return false;
         } 

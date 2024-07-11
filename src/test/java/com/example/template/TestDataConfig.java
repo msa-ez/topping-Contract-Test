@@ -1,5 +1,5 @@
 forEach: Command
-except: {{#checkExample this examples}}{{/checkExample}}
+except: {{#checkExample examples}}{{/checkExample}}
 ---
 package com.example.template;
 import org.springframework.boot.CommandLineRunner;
@@ -30,7 +30,7 @@ public class TestDataConfig {
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkExample', function (type, examples) {
+    window.$HandleBars.registerHelper('checkExample', function (examples) {
         if(examples && examples[0].when[0].value.id){
             return false;
         } 
