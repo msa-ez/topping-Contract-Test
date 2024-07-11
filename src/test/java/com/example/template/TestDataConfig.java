@@ -1,5 +1,5 @@
 forEach: Command
-path: {{boundedContext.name}}/src/test/java/com/example/template
+path: {{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}/src/test/java/com/example/template
 except: {{#checkExample examples}}{{/checkExample}}
 ---
 package com.example.template;
