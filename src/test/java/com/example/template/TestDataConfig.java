@@ -33,8 +33,9 @@ public class TestDataConfig {
     window.$HandleBars.registerHelper('checkExample', function (examples) {
         if(examples && examples[0].when[0].value.id){
             return false;
-        } 
-        return true;
+        }else{
+            return true;
+        }
     })
 
     window.$HandleBars.registerHelper('compareAndSetType', function (key, value, field) {
