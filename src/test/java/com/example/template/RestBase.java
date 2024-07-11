@@ -1,5 +1,4 @@
 forEach: Command
-path: {{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}/src/test/java/com/example/template
 fileName: RestBase.java
 except: {{#checkExample this examples}}{{/checkExample}}
 ---
