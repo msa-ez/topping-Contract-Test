@@ -1,6 +1,6 @@
 forEach: Command
 fileName: {{nameCamelCase}}Get.groovy
-path: {{#incomingRelations}}{{#source}}{{/source}{{/incomingRelations}}
+path: /{{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}
 except: {{#checkExample examples}}{{/checkExample}}
 ---
 package contracts.rest
