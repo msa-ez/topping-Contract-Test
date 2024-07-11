@@ -1,7 +1,7 @@
 forEach: Command
-path: {{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}/src/test/java/com/example/template
+path: /src/test/java/com/example/template
 fileName: RestBase.java
-except: {{#checkExample examples}}{{/checkExample}}
+except: {{#checkExample this examples}}{{/checkExample}}
 ---
 package com.example.template;
 
@@ -41,7 +41,7 @@ public class RestBase {
     }
 }
 <function>
-    window.$HandleBars.registerHelper('checkExample', function (examples) {
+    window.$HandleBars.registerHelper('checkExample', function (type, examples) {
         if(examples){
             return false;
         } 
