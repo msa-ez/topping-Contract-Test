@@ -1,7 +1,8 @@
 forEach: Aggregate
+representativeFor: Command
 fileName: {{namePascalCase}}Controller.java
 path: {{boundedContext.name}}/{{options.packagePath}}/infra
-except: {{#attached "Event" this}}{{#incomingRelations}}{{#source}}{{#checkIncoming examples}}{{/checkIncoming}}{{/source}}{{/incomingRelations}}{{/attached}}
+except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
 ---
 package {{options.package}}.infra;
 
@@ -90,8 +91,12 @@ public class {{namePascalCase}}Controller {
     
 }
 <function>
-    window.$HandleBars.registerHelper('checkIncoming', function (examples) {
-        if(!examples) return true;
+    window.$HandleBars.registerHelper('checkIncoming', function (source) {
+        if(source.type == 'Command' && source.examples){
+            return false;
+        }else{
+            return true;
+        }
     })
     window.$HandleBars.registerHelper('checkMethod', function (method, options) {
         if(method.endsWith("PUT") || method.endsWith("DELETE")){

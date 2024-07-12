@@ -1,7 +1,8 @@
 forEach: Aggregate
+representativeFor: Command
 fileName: {{namePascalCase}}Controller.java
 path: {{boundedContext.name}}/{{options.packagePath}}/infra
-except: {{#attached "Event" this}}{{#checkOutgoing outgoingRelations}}{{/checkOutgoing}}{{/attached}}
+except: except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
 ---
 package {{options.package}}.infra;
 
@@ -60,8 +61,12 @@ public class {{namePascalCase}}Controller {
     {{/attached}}
 }
 <function>
-    window.$HandleBars.registerHelper('checkOutgoing', function (relation) {
-        if(!relation) return true;
+    window.$HandleBars.registerHelper('checkTarget', function (target) {
+        if(target.type == 'Command' && target.examples){
+            return false;
+        }else{
+            return true;
+        }
     })
 
     window.$HandleBars.registerHelper('wrapRight', function (name) {
