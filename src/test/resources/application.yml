@@ -38,10 +38,11 @@ api:
     {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}: "http://localhost:8090"
 
 <function>
-    window.$HandleBars.registerHelper('checkOutgoing', function (target) {
-        if(source.type == 'Policy' && source.examples){
+    window.$HandleBars.registerHelper('checkIncoming', function (source) {
+        if(source.type == 'Command' && source.examples){
+            return false;
+        }else{
             return true;
-        } 
-        return false;
+        }
     })
 </function>
