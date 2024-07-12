@@ -1,5 +1,5 @@
 forEach: Aggregate
-path: {{boundedContext.name}}/{{options.packagePath}}/config
+except: except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
 ---
 package {{options.package}}.config;
 
@@ -21,3 +21,12 @@ public class Config {
 		return restTemplate;
 	}
 }
+<function>
+	window.$HandleBars.registerHelper('checkTarget', function (target) {
+		if(target.type == 'Command' && target.examples){
+			return false;
+		}else{
+			return true;
+		}
+	})
+</function>
