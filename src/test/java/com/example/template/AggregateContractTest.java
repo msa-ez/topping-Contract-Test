@@ -1,7 +1,8 @@
 forEach: Aggregate
-fileName: {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#aggregate}}{{namePascalCase}}{{/aggregate}}{{/target}}{{/outgoingRelations}}{{/attached}}ContractTest.java
-path: {{boundedContext.name}}/src/test/java/com/example/template
-except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
+representativeFor: Command
+fileName: {{namePascalCase}}ContractTest.java
+path: {{#attached "Command" this}}{{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}{{/attached}}/src/test/java/com/example/template
+except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
 ---
 package com.example.template;
 
@@ -68,9 +69,11 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkTarget', function (target) {
-        if(target.type == 'Command' && target.examples){
+    window.$HandleBars.registerHelper('checkIncoming', function (source) {
+        if(source.type == 'Command' && source.examples){
             return false;
+        }else{
+            return true;
         }
     })
 
