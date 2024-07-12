@@ -1,4 +1,3 @@
-path: {{boundedContext.name}}/src/test/resources
 fileName: application.yml
 except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
 ---
