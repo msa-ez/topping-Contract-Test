@@ -1,5 +1,3 @@
-path: {{name}}/src/main/resources
----
 server:
   port: 8080
 
