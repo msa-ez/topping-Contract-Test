@@ -32,7 +32,7 @@ public class TestDataConfig {
 
 <function>
     window.$HandleBars.registerHelper('checkExample', function (example, type) {
-        if(exampe && type != 'Policy'){
+        if(example && type != 'Policy'){
             return false;
         }else{
             return true;
