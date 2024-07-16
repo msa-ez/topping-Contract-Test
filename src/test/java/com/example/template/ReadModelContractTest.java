@@ -1,4 +1,4 @@
-forEach: Command
+forEach: View
 fileName: {{aggregate.namePascalCase}}ContractTest.java
 path: {{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}/src/test/java/com/example/template
 except: {{#checkIncoming examples incomingRelations}}{{/checkIncoming}}
@@ -65,7 +65,7 @@ public class {{aggregate.namePascalCase}}ContractTest {
     window.$HandleBars.registerHelper('checkIncoming', function (example, incoming) {
         if(incoming){
             for(var i = 0; i < incoming.length; i++){
-                if(example && incoming[i].source.type == 'Event'){
+                if(example && incoming[i].source.type == 'Command'){
                     return false;
                 }else{
                     return true;

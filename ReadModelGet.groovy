@@ -1,5 +1,5 @@
 forEach: View
-fileName: {{nameCamelCase}}Get.groovy
+fileName: {{nameCamelCase}}.groovy
 path: {{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}
 except: {{#checkExamples examples}}{{/checkExamples}}
 ---
