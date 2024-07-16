@@ -13,13 +13,6 @@ org.springframework.cloud.contract.spec.Contract.make {
             contentType(applicationJsonUtf8())
         }
         body(
-            {{#examples}}
-            {{#when}}
-            {{#each value}}
-                {{@key}}: {{this}},
-            {{/each}}
-            {{/when}}
-            {{/examples}}
         )
     }
     response {
@@ -37,7 +30,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#then}}
             {{#each value}}
-            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../aggregateList ../../../aggregate}}{{/setExampleType}}())
+            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../aggregate}}{{/setExampleType}}())
             {{/each}}
             {{/then}}
             {{/examples}}
@@ -53,22 +46,11 @@ org.springframework.cloud.contract.spec.Contract.make {
         if(examples) return false;
     })
 
-    window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList, aggregate) {
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregate) {
         var type = 'String'
-        if(aggregateList){
-            for(var i = 0; i < aggregateList.length; i++){
-                for(var j = 0; j< aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
-                    if(aggregateList[i].aggregateRoot.fieldDescriptors[j].name == key){
-                        type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
-                    }
-                }
-                
-            }
-        }else if(!aggregateList && aggregate){
-            for(var i = 0; i < aggregate.aggregateRoot.fieldDescriptors.length; i++){
-                if(aggregate.aggregateRoot.fieldDescriptors[i].name == key){
-                    type = aggregate.aggregateRoot.fieldDescriptors[i].className
-                }
+        for(var i = 0; i < aggregate.aggregateRoot.fieldDescriptors.length; i++){
+            if(aggregate.aggregateRoot.fieldDescriptors[i].name == key){
+                type = aggregate.aggregateRoot.fieldDescriptors[i].className
             }
         }
         
