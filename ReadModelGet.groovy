@@ -8,7 +8,7 @@ package contracts.rest
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method 'GET'
-        url ('/{{#attached "Command" this}}{{#outgoingRelations}}{{#target}}{{queryOption.apiPath}}{{/target}}{{/outgoingRelations}}{{/attached}}/1')
+        url ('{{aggregate.namePlural}}/search/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}')
         headers {
             contentType(applicationJsonUtf8())
         }
@@ -74,13 +74,5 @@ org.springframework.cloud.contract.spec.Contract.make {
         }
         
         return type;
-    })
-
-    window.$HandleBars.registerHelper('checkExtendVerbType', function (type, path) {
-        if(type == 'POST'){
-            return path;
-        }else{
-            return '/1/'+ path;
-        }
     })
 </function>
