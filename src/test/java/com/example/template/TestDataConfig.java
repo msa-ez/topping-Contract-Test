@@ -1,6 +1,6 @@
-forEach: Command
+forEach: Aggregate
 path: {{boundedContext.name}}/src/test/java/com/example/template
-except: {{#checkExample examples}}{{/checkExample}}
+except: {{#if commands}}{{#attached "Command" this}}{{#checkExample examples type}}{{/checkExample}}{{/attached}}{{else}}{{#attached "View" this}}{{#checkExample examples type}}{{/checkExample}}{{/attached}}{{/if}}
 ---
 package com.example.template;
 import org.springframework.boot.CommandLineRunner;
@@ -31,8 +31,8 @@ public class TestDataConfig {
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkExample', function (examples) {
-        if(examples && examples[0].when[0].value.id){
+    window.$HandleBars.registerHelper('checkExample', function (example, type) {
+        if(exampe && type != 'Policy'){
             return false;
         }else{
             return true;
