@@ -13,9 +13,6 @@ org.springframework.cloud.contract.spec.Contract.make {
             contentType(applicationJsonUtf8())
         }
         body(
-            {{#attached "Event" this}}
-            {{#outgoingRelations}}
-            {{#target}}
             {{#examples}}
             {{#when}}
             {{#each value}}
@@ -23,9 +20,6 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{/each}}
             {{/when}}
             {{/examples}}
-            {{/target}}
-            {{/outgoingRelations}}
-            {{/attached}}
         )
     }
     response {
@@ -75,9 +69,9 @@ org.springframework.cloud.contract.spec.Contract.make {
 
     window.$HandleBars.registerHelper('checkExtendVerbType', function (type, path) {
         if(type == 'POST'){
-            return path;
+            return '/' + path;
         }else{
-            return '/1/'+ path;
+            return '/1/' + path;
         }
     })
 </function>
