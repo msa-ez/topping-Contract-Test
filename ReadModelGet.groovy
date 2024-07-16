@@ -20,7 +20,6 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{/each}}
             {{/when}}
             {{/examples}}
-            {{/attached}}
         )
     }
     response {
