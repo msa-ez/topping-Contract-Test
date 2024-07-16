@@ -17,7 +17,9 @@ public class TestDataConfig {
     @Bean
     public CommandLineRunner initData({{aggregate.namePascalCase}}Repository repository) {
         return args -> {
-            {{aggregate.namePascalCase}} {{aggregate.nameCamelCase}} = new {{aggregate.namePascalCase}}();
+            {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
+            {{#if commands}}
+            {{#attached "Command" this}}
             {{#examples}}
             {{#given}}
             {{#each value}}
@@ -25,6 +27,18 @@ public class TestDataConfig {
             {{/each}}
             {{/given}}
             {{/examples}}
+            {{/attached}}
+            {{else}}
+            {{#attached "View" this}}
+            {{#examples}}
+            {{#given}}
+            {{#each value}}
+            {{../../../aggregate.nameCamelCase}}.set{{pascalCase @key}}({{#compareAndSetType @key this ../../../aggregate.aggregateRoot.fieldDescriptors}}{{/compareAndSetType}});
+            {{/each}}
+            {{/given}}
+            {{/examples}}
+            {{/attached}}
+            {{/if}}
             repository.save({{aggregate.nameCamelCase}});
         };
     }
