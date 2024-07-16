@@ -2,7 +2,7 @@ forEach: Aggregate
 representativeFor: Command
 fileName: {{namePascalCase}}ContractTest.java
 path: {{#attached "Command" this}}{{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}{{/attached}}/src/test/java/com/example/template
-except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
+except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source outgoingRelations}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
 ---
 package com.example.template;
 
@@ -69,11 +69,13 @@ public class {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attac
 }
 
 <function>
-    window.$HandleBars.registerHelper('checkIncoming', function (source) {
-        if(source.type == 'Command' && source.examples){
-            return false;
-        }else{
-            return true;
+    window.$HandleBars.registerHelper('checkIncoming', function (source, outgoing) {
+        for(var i = 0; i < outgoing.length; i++){
+            if(source.type == 'Command' && source.examples && outgoing[i].target.type == 'Command'){
+                return false;
+            }else{
+                return true;
+            }
         }
     })
 
