@@ -193,7 +193,9 @@
 					</baseClassForTests>
 				</configuration>
 			</plugin>
-			
+			{{#if policies}}
+			{{#attached "Policy" this}}
+			{{#if examples}}
 			<!-- SPRING CLOUD CONTRACT -->
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
@@ -213,9 +215,8 @@
 			</plugin>
 			<!-- SPRING CLOUD CONTRACT -->
 			{{/if}}
-			{{/target}}
-			{{/outgoingRelations}}
 			{{/attached}}
+			{{/if}}
 		</plugins>
 		
 	</build>
