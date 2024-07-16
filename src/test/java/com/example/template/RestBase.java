@@ -1,6 +1,6 @@
-forEach: Command
+forEach: Aggregate
 fileName: RestBase.java
-except: {{#checkExample examples}}{{/checkExample}}
+except: {{#if commands}}{{#attached "Command" this}}{{#checkExample examples type}}{{/checkExample}}{{/attached}}{{else}}{{#attached "View" this}}{{#checkExample examples type}}{{/checkExample}}{{/attached}}{{/if}}
 ---
 package com.example.template;
 
@@ -21,18 +21,18 @@ import {{options.package}}.{{namePascalCase}}Application;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {{aggregate.namePascalCase}}Application.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {{namePascalCase}}Application.class)
 @AutoConfigureMockMvc
 @Import(TestDataConfig.class)
 public class RestBase {
 
     @Autowired
-    private {{aggregate.namePascalCase}}Controller {{aggregate.nameCamelCase}}Controller;
+    private {{namePascalCase}}Controller {{nameCamelCase}}Controller;
 
     @Before
     public void setup() {
         StandaloneMockMvcBuilder standaloneMockMvcBuilder = MockMvcBuilders.standaloneSetup(
-            {{aggregate.nameCamelCase}}Controller
+            {{nameCamelCase}}Controller
         ).addFilters(new CharacterEncodingFilter("UTF-8", true)); 
 
         RestAssuredMockMvc.standaloneSetup(standaloneMockMvcBuilder);
@@ -40,8 +40,8 @@ public class RestBase {
     }
 }
 <function>
-    window.$HandleBars.registerHelper('checkExample', function (examples) {
-        if(examples && examples[0].when[0].value.id){
+    window.$HandleBars.registerHelper('checkExample', function (example, type) {
+        if(example && type != 'Policy'){
             return false;
         }else{
             return true;
