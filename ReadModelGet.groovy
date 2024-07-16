@@ -10,7 +10,7 @@ org.springframework.cloud.contract.spec.Contract.make {
         method 'GET'
         url ('/{{aggregate.namePlural}}/search/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}')
         headers {
-            contentType(applicationJsonUtf8())
+            contentType(applicationJson())
         }
         body(
         )
@@ -36,7 +36,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{/examples}}
         }
         headers {
-            contentType(applicationJsonUtf8())
+            contentType(applicationJson())
         }
     }
 }
