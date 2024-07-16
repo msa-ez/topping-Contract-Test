@@ -1,4 +1,4 @@
-forEach: ReadModel
+forEach: View
 fileName: {{nameCamelCase}}Get.groovy
 path: {{#incomingRelations}}{{#source}}{{boundedContext.name}}{{/source}}{{/incomingRelations}}
 except: {{#checkExamples examples}}{{/checkExamples}}
@@ -8,7 +8,7 @@ package contracts.rest
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method 'GET'
-        url ('{{aggregate.namePlural}}/search/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}')
+        url ('/{{aggregate.namePlural}}/search/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}')
         headers {
             contentType(applicationJsonUtf8())
         }
