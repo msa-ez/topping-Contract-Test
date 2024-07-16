@@ -74,10 +74,6 @@
 			<version>${spring-cloud.version}</version>				
 			<scope>test</scope>
 		</dependency-->
-		{{#attached "Event" this}}
-		{{#outgoingRelations}}
-		{{#target}}
-		{{#if aggregate}}
 		<!-- Client Sdie Contract dependencies  -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -98,21 +94,12 @@
 			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
 			<scope>test</scope>
 		</dependency>
-		{{/if}}
-		{{#if aggregateList}}
 		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream-test-support</artifactId>
 			<scope>test</scope>
 		</dependency>
-		{{/if}}
-		{{/target}}
-		{{/outgoingRelations}}
-		{{#incomingRelations}}
-		{{#source}}
-		{{#if aggregate}}
-		{{#if examples}}
 		<!-- Producer Sdie Contract dependencies  -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -120,11 +107,6 @@
 			<version>${spring-cloud-contract.version}</version>
 			<scope>test</scope>
 		</dependency>
-		{{/if}}
-		{{/if}}
-		{{/source}}
-		{{/incomingRelations}}
-		{{/attached}}
 		<!-- Support testing your microservice without connecting to a messaging system. -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -165,10 +147,9 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			{{#attached "Event" this}}
-			{{#incomingRelations}}
-			{{#source}}
-			{{#if aggregate}}
+
+			{{#if readModels}}
+			{{#attached "View" this}}
 			{{#if examples}}
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
@@ -182,12 +163,37 @@
 				</configuration>
 			</plugin>
 			{{/if}}
+			{{/attached}}
+			{{else}}
+			{{#attached "Command" this}}
+			{{#if examples}}
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>2.1.1.RELEASE</version>
+				<extensions>true</extensions>
+				<configuration>
+					<baseClassForTests>
+						com.example.template.RestBase
+					</baseClassForTests>
+				</configuration>
+			</plugin>
 			{{/if}}
-			{{/source}}
-			{{/incomingRelations}}
-			{{#outgoingRelations}}
-			{{#target}}
-			{{#if aggregateList}}
+			{{/attached}}
+			{{/if}}
+
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+				<version>2.1.1.RELEASE</version>
+				<extensions>true</extensions>
+				<configuration>
+					<baseClassForTests>
+						com.example.template.RestBase
+					</baseClassForTests>
+				</configuration>
+			</plugin>
+			
 			<!-- SPRING CLOUD CONTRACT -->
 			<plugin>
 				<groupId>org.springframework.cloud</groupId>
