@@ -7,15 +7,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
-import {{options.package}}.domain.{{aggregate.namePascalCase}};
-import {{options.package}}.domain.{{aggregate.namePascalCase}}Repository;
+import {{options.package}}.domain.{{namePascalCase}};
+import {{options.package}}.domain.{{namePascalCase}}Repository;
 
 
 @TestConfiguration
 public class TestDataConfig {
 
     @Bean
-    public CommandLineRunner initData({{aggregate.namePascalCase}}Repository repository) {
+    public CommandLineRunner initData({{namePascalCase}}Repository repository) {
         return args -> {
             {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
             {{#if commands}}
@@ -39,7 +39,7 @@ public class TestDataConfig {
             {{/examples}}
             {{/attached}}
             {{/if}}
-            repository.save({{aggregate.nameCamelCase}});
+            repository.save({{nameCamelCase}});
         };
     }
 }
