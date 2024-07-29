@@ -1,6 +1,7 @@
 forEach: Aggregate
 fileName: {{namePascalCase}}Controller.java
 path: {{boundedContext.name}}/{{options.packagePath}}/infra
+mergeType: template
 ---
 package {{options.package}}.infra;
 
