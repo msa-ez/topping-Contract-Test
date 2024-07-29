@@ -1,7 +1,6 @@
 forEach: Aggregate
 fileName: {{namePascalCase}}Controller.java
 path: {{boundedContext.name}}/{{options.packagePath}}/infra
-except: {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#checkExample examples type}}{{/checkExample}}{{/target}}{{/outgoingRelations}}{{/attached}}
 ---
 package {{options.package}}.infra;
 
@@ -22,6 +21,19 @@ public class {{namePascalCase}}Controller {
 
     @Autowired
     {{namePascalCase}}Repository {{nameCamelCase}}Repository;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    {{#boundedContext}}
+    {{#if relationCommandInfo}}
+    {{#relationCommandInfo}}
+    {{#if targetAggregate}}
+    @Value("${api.url.{{#wrapRight targetAggregate.aggregate.nameCamelCase}}}{{/wrapRight}}"){{else}}@Value("${api.url.{{#wrapRight commandValue.aggregate.nameCamelCase}}}{{/wrapRight}}")
+    {{/if}}
+    {{/relationCommandInfo}
+    {{/boundedContext}}
+    private String apiUrl;
 
     {{#if commands}}
     {{#commands}}
@@ -86,9 +98,6 @@ public class {{namePascalCase}}Controller {
     {{/target}}
     {{/outgoingRelations}}
     {{/attached}}
-
-    @Autowired
-    private RestTemplate restTemplate;
     
     {{#attached "Event" this}}
     {{#outgoingRelations}}
@@ -109,6 +118,17 @@ public class {{namePascalCase}}Controller {
     {{/attached}}
     {{/target}}
     {{/outgoingRelations}}
+    {{/attached}}
+
+    {{#attached "View" this}}
+    {{#if incomingRelations}}
+    @GetMapping("/{{aggregate.namePlural}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}")
+    public ResponseEntity<List<{{aggregate.namePascalCase}}>> {{aggregate.nameCamelCase}}StockCheck() {
+        Iterable<{{aggregate.namePascalCase}}> {{aggregate.nameCamelCase}}Iterable = {{aggregate.nameCamelCase}}Repository.findAll();
+        List<{{aggregate.namePascalCase}}> {{aggregate.namePlural}} = StreamSupport.stream({{aggregate.nameCamelCase}}Iterable.spliterator(), false).collect(Collectors.toList());
+        return ResponseEntity.ok().body({{aggregate.namePlural}});
+    }
+    {{/if}}
     {{/attached}}
 
     {{#attached "Command" this}}
