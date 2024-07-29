@@ -1,7 +1,6 @@
 forEach: Aggregate
 fileName: {{namePascalCase}}Controller.java
 path: {{boundedContext.name}}/{{options.packagePath}}/infra
-mergeType: template
 ---
 package {{options.package}}.infra;
 
@@ -30,7 +29,7 @@ public class {{namePascalCase}}Controller {
     {{#if relationCommandInfo}}
     {{#relationCommandInfo}}
     {{#if targetAggregate}}
-    @Value("${api.url.{{#wrapRight targetAggregate.aggregate.nameCamelCase}}}{{/wrapRight}}"){{else}}@Value("${api.url.{{#wrapRight commandValue.aggregate.nameCamelCase}}}{{/wrapRight}}")
+    @Value("${api.url.{{#wrapRight targetAggregate.aggregate.nameCamelCase}}{{/wrapRight}}"){{else}}@Value("${api.url.{{#wrapRight commandValue.aggregate.nameCamelCase}}{{/wrapRight}}")
     {{/if}}
     {{/relationCommandInfo}
     {{/boundedContext}}
