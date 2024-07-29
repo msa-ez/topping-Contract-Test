@@ -8,12 +8,10 @@ package contracts.rest
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method 'GET'
-        url ('/{{aggregate.namePlural}}/search/{{#if queryOption.apiPath}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}')
+        url ('/{{aggregate.namePlural}}/search/{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}')
         headers {
             contentType(applicationJson())
         }
-        body(
-        )
     }
     response {
         status 200
@@ -30,7 +28,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#then}}
             {{#each value}}
-            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../aggregate}}{{/setExampleType}}())
+            jsonPath('$[0].{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../aggregate}}{{/setExampleType}}())
             {{/each}}
             {{/then}}
             {{/examples}}

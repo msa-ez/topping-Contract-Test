@@ -1,8 +1,7 @@
 forEach: Aggregate
-representativeFor: Command
 fileName: {{namePascalCase}}Controller.java
 path: {{boundedContext.name}}/{{options.packagePath}}/infra
-except: {{#attached "Event" this}}{{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}{{/attached}}
+except: {{#if commands}}{{#attached "Command" this}}{{#checkExample examples type}}{{/checkExample}}{{/attached}}{{else}}{{#attached "View" this}}{{#checkExample examples type}}{{/checkExample}}{{/attached}}{{/if}}
 ---
 package {{options.package}}.infra;
 
@@ -25,6 +24,7 @@ public class {{namePascalCase}}Controller {
     @Autowired
     {{namePascalCase}}Repository {{nameCamelCase}}Repository;
 
+    {{#if commands}}
     {{#commands}}
     {{#isRestRepository}}
     {{/isRestRepository}}
@@ -75,6 +75,7 @@ public class {{namePascalCase}}Controller {
     {{/checkMethod}}    
     {{/isRestRepository}}
     {{/commands}}
+    {{/if}}
 
     {{#attached "Command" this}}
     {{#if controllerInfo.apiPath}}
@@ -91,8 +92,8 @@ public class {{namePascalCase}}Controller {
     
 }
 <function>
-    window.$HandleBars.registerHelper('checkIncoming', function (source) {
-        if(source.type == 'Command' && source.examples){
+    window.$HandleBars.registerHelper('checkExample', function (example, type) {
+        if(example && type != 'Policy'){
             return false;
         }else{
             return true;

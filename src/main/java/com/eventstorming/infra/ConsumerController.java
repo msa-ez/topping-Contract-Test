@@ -1,8 +1,7 @@
 forEach: Aggregate
-representativeFor: Command
 fileName: {{namePascalCase}}Controller.java
 path: {{boundedContext.name}}/{{options.packagePath}}/infra
-except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
+except: {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#checkExample examples type}}{{/checkExample}}{{/target}}{{/outgoingRelations}}{{/attached}}
 ---
 package {{options.package}}.infra;
 
@@ -53,16 +52,10 @@ public class {{namePascalCase}}Controller {
     {{/outgoingRelations}}
     {{/attached}}
 
-    {{#attached "Event" this}}
-    {{#outgoingRelations}}
-    {{#target}}
-    {{/target}}
-    {{/outgoingRelations}}
-    {{/attached}}
 }
 <function>
-    window.$HandleBars.registerHelper('checkTarget', function (target) {
-        if(target.type == 'Command' && target.examples){
+    window.$HandleBars.registerHelper('checkExample', function (example, type) {
+        if(example && type != "Policy"){
             return false;
         }else{
             return true;

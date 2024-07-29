@@ -52,7 +52,8 @@ logging:
 
 api:
   url:
-    {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}: http://localhost:{{boundedContext.portGenerated}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}
+    {{#setApiUrl relationCommandInfo true}}{{/setApiUrl}}
+{{/checkCommandRelation}}
 
 server:
   port: {{portGenerated}}
@@ -85,14 +86,26 @@ spring:
         event-out:
           destination: eventTopicDocker
           contentType: application/json
-{{#attached "Event" this}}
-{{#outgoingRelations}}
-{{#if target}}
-{{#target}}
+
 api:
   url: 
-    {{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}: http://localhost:8080
-{{/target}}
-{{/if}}
-{{/outgoingRelations}}
-{{/attached}}
+    {{#setApiUrl relationCommandInfo false}}{{/setApiUrl}}
+{{/checkCommandRelation}}
+
+<function>
+window.$HandleBars.registerHelper('setApiUrl', function (relationCommandInfo, isPortGen) {
+  var text = "";
+
+  relationCommandInfo.forEach(function(item) {
+    if(!text.includes(item.commandValue.boundedContext.name)) {
+      if(isPortGen) {
+        text += item.commandValue.boundedContext.name + ": localhost:" + item.commandValue.boundedContext.portGenerated + " \n    ";
+      } else {
+        text += item.commandValue.boundedContext.name + ": " +item.commandValue.boundedContext.name +":8080 \n    ";
+      }
+    }
+  })
+  
+  return text;
+});
+</function>

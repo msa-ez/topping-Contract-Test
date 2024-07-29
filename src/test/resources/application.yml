@@ -35,8 +35,8 @@ spring:
 
 api:
   url:
-    {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{nameCamelCase}}{{/attached}}{{/target}}{{/outgoingRelations}}{{/attached}}: "http://localhost:8090"
-
+    {{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}: "http://localhost:8090"
+  
 <function>
   window.$HandleBars.registerHelper('checkTarget', function (target) {
         if(target.type == 'Command' && target.examples){
