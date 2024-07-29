@@ -32,6 +32,7 @@ public class {{namePascalCase}}Controller {
     @Value("${api.url.{{#wrapRight targetAggregate.aggregate.nameCamelCase}}{{/wrapRight}}"){{else}}@Value("${api.url.{{#wrapRight commandValue.aggregate.nameCamelCase}}{{/wrapRight}}")
     {{/if}}
     {{/relationCommandInfo}}
+    {{/if}}
     {{/boundedContext}}
     private String apiUrl;
 
