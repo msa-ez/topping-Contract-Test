@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import {{options.package}}.domain.{{namePascalCase}}Repository;
+import {{options.package}}.domain.{{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.namePascalCase}}{{else}}{{commandValue.aggregate.namePascalCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}ControllerRepository;
 
 @RestController
-public class {{namePascalCase}}Controller {
+public class {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.namePascalCase}}{{else}}{{commandValue.aggregate.namePascalCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}Controller {
 
     @Autowired
-    {{namePascalCase}}Repository {{nameCamelCase}}Repository;
+    {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.namePascalCase}}{{else}}{{commandValue.aggregate.namePascalCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}ControllerRepository {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}ControllerRepository;
 
     {{#if commands}}
     {{#commands}}
