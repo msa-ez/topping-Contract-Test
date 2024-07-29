@@ -61,7 +61,7 @@ public class {{namePascalCase}}Controller {
     {{/checkMethod}}
 
     {{^checkMethod controllerInfo.method}}
-    @RequestMapping(value = "{{../namePlural}}/{{controllerInfo.apiPath}}",
+    @RequestMapping(value = "{{../namePlural}}{{controllerInfo.apiPath}}",
             method = RequestMethod.{{controllerInfo.method}},
             produces = "application/json;charset=UTF-8")
     public {{../namePascalCase}} {{nameCamelCase}}(HttpServletRequest request, HttpServletResponse response, 
