@@ -55,6 +55,7 @@ public class {{namePascalCase}}Controller {
     {{#attached "Command" this}}
     {{#outgoingRelations}}
     {{#target}}
+    {{#if queryParameters}}
     @GetMapping("/{{../../../nameCamelCase}}/validate{{aggregate.namePascalCase}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}")
     public ResponseEntity<String> {{aggregate.nameCamelCase}}StockCheck() {
         String {{aggregate.nameCamelCase}}Url = apiUrl + "/{{aggregate.namePlural}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}";
@@ -67,6 +68,7 @@ public class {{namePascalCase}}Controller {
 
         return {{aggregate.nameCamelCase}}Entity;
     }
+    {{/if}}
     {{/target}}
     {{/outgoingRelations}}
     {{/attached}}
