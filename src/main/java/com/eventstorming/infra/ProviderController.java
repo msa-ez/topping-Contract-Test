@@ -1,6 +1,6 @@
 forEach: Aggregate
 fileName: {{namePascalCase}}Controller.java
-path: {{boundedContext.name}}/{{options.packagePath}}/infra
+path: {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.boundedContext.nameCamelCase}}{{else}}{{commandValue.boundedContext.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}/{{options.packagePath}}/infra
 except: {{#boundedContext}}{{#checkControllerType relationCommandInfo targetAggregate}}{{/checkControllerType}}{{/boundedContext}}
 ---
 package {{options.package}}.infra;
