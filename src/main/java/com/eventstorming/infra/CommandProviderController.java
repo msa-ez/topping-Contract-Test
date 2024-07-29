@@ -1,7 +1,7 @@
-forEach: Aggregate
-fileName: {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.namePascalCase}}{{else}}{{commandValue.aggregate.namePascalCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}Controller.java
-path: {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.boundedContext.nameCamelCase}}{{else}}{{commandValue.boundedContext.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}/{{options.packagePath}}/infra
-except: {{#boundedContext}}{{#checkControllerType relationCommandInfo targetAggregate}}{{/checkControllerType}}{{/boundedContext}}
+forEach: Command
+fileName: {{aggregate.namePascalCase}}Controller.java
+path: {{boundedContext.name}}/{{options.packagePath}}/infra
+except: {{#incomingRelations}}{{#checkStickerType source}}{{/checkStickerType}}{{/incomingRelations}}
 ---
 package {{options.package}}.infra;
 
@@ -22,7 +22,7 @@ import {{options.package}}.domain.{{#boundedContext}}{{#relationCommandInfo}}{{#
 public class {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.namePascalCase}}{{else}}{{commandValue.aggregate.namePascalCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}Controller {
 
     @Autowired
-    {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.namePascalCase}}{{else}}{{commandValue.aggregate.namePascalCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}ControllerRepository {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}ControllerRepository;
+    {{namePascalCase}}Repository {{nameCamelCase}}Repository;
 
     {{#if commands}}
     {{#commands}}
@@ -88,21 +88,16 @@ public class {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{
     }
     {{/if}}
     {{/attached}}
-
-    {{#attached "Command" this}}
-    {{#outgoingRelations}}
-    {{#target}}
-    @GetMapping("/{{aggregate.namePlural}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}")
-    public ResponseEntity<List<{{aggregate.namePascalCase}}>> {{aggregate.nameCamelCase}}StockCheck() {
-        Iterable<{{aggregate.namePascalCase}}> {{aggregate.nameCamelCase}}Iterable = {{aggregate.nameCamelCase}}Repository.findAll();
-        List<{{aggregate.namePascalCase}}> {{aggregate.namePlural}} = StreamSupport.stream({{aggregate.nameCamelCase}}Iterable.spliterator(), false).collect(Collectors.toList());
-        return ResponseEntity.ok().body({{aggregate.namePlural}});
-    }
-    {{/target}}
-    {{/outgoingRelations}}
-    {{/attached}}
+   
 }
 <function>
+    window.$HandleBars.registerHelper('checkStickerType', function (source) {
+        if(source.type == 'Event'){
+            return false;
+        }else{
+            return true;
+        }
+    })
     window.$HandleBars.registerHelper('checkControllerType', function (relationCommandInfo, targetAggregate) {
         if(relationCommandInfo || targetAggregate){
             return false;
