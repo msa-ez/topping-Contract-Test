@@ -41,7 +41,7 @@ public class {{aggregate.namePascalCase}}ContractTest {
     public void get{{aggregate.namePascalCase}}_stub_test() throws Exception {
 
         MvcResult result = mockMvc
-        .perform(MockMvcRequestBuilders.get("/{{#incomingRelations}}{{#source}}{{aggregate.nameCamelCase}}{{/source}}{{/incomingRelations}}/validate{{aggregate.namePascalCase}}/1")
+        .perform(MockMvcRequestBuilders.get("/{{#incomingRelations}}{{#source}}{{aggregate.nameCamelCase}}{{/source}}{{/incomingRelations}}/validate{{aggregate.namePascalCase}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}")
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
@@ -53,7 +53,7 @@ public class {{aggregate.namePascalCase}}ContractTest {
         {{#examples}}
         {{#then}}
         {{#each value}}
-        Assertions.assertThat(parsedJson.read("$.{{camelCase @key}}", {{#setExampleType @key this  ../../../aggregate}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../aggregate}}{{/setAssertion}}
+        Assertions.assertThat(parsedJson.read("$[0].{{camelCase @key}}", {{#setExampleType @key this  ../../../queryParameters}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../queryParameters}}{{/setAssertion}}
         {{/each}}
         {{/then}}
         {{/examples}}
@@ -76,22 +76,22 @@ public class {{aggregate.namePascalCase}}ContractTest {
         }
     })
 
-    window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregate) {
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, parameters) {
         var type = 'String'
-        for(var i = 0; i < aggregate.aggregateRoot.fieldDescriptors.length; i++){
-            if(aggregate.aggregateRoot.fieldDescriptors[i].name == key){
-                type = aggregate.aggregateRoot.fieldDescriptors[i].className
+        for(var i = 0; i < parameters.length; i++){
+            if(parameters[i].name == key){
+                type = parameters[i].className
             }
         }
         return type;
     })
 
-    window.$HandleBars.registerHelper('setAssertion', function (key, value, aggregate) {
+    window.$HandleBars.registerHelper('setAssertion', function (key, value, parameters) {
         var type = 'String'
         
-        for(var i = 0; i < aggregate.aggregateRoot.fieldDescriptors.length; i++){
-            if(aggregate.aggregateRoot.fieldDescriptors[i].name == key){
-                type = aggregate.aggregateRoot.fieldDescriptors[i].className
+        for(var i = 0; i < parameters.length; i++){
+            if(parameters[i].name == key){
+                type = parameters[i].className
             }
         }
 
