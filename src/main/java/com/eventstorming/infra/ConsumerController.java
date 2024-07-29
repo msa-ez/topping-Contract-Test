@@ -1,7 +1,7 @@
 forEach: Aggregate
 fileName: {{namePascalCase}}Controller.java
 path: {{boundedContext.name}}/{{options.packagePath}}/infra
-except: {{#boundedContext}}{{#checkControllerType relationCommandInfo targetAggregate}}{{/checkControllerType}}{{/boundedContext}}
+except: {{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#checkExample examples type}}{{/checkExample}}{{/target}}{{/outgoingRelations}}{{/attached}}
 ---
 package {{options.package}}.infra;
 
@@ -78,8 +78,8 @@ public class {{namePascalCase}}Controller {
 
 }
 <function>
-    window.$HandleBars.registerHelper('checkControllerType', function (relationCommandInfo, targetAggregate) {
-        if(relationCommandInfo || targetAggregate){
+    window.$HandleBars.registerHelper('checkExample', function (example, type) {
+        if(example && type != "Policy"){
             return false;
         }else{
             return true;
