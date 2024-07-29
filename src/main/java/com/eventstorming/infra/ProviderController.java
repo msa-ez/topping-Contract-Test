@@ -1,5 +1,5 @@
 forEach: Aggregate
-fileName: {{namePascalCase}}Controller.java
+fileName: {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.namePascalCase}}{{else}}{{commandValue.aggregate.namePascalCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}Controller.java
 path: {{#boundedContext}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.boundedContext.nameCamelCase}}{{else}}{{commandValue.boundedContext.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{/boundedContext}}/{{options.packagePath}}/infra
 except: {{#boundedContext}}{{#checkControllerType relationCommandInfo targetAggregate}}{{/checkControllerType}}{{/boundedContext}}
 ---
