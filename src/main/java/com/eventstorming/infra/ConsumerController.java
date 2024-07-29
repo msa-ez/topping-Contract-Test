@@ -33,19 +33,22 @@ public class {{namePascalCase}}Controller {
 
     @Autowired
     private RestTemplate restTemplate;
-
-    @GetMapping("/{{nameCamelCase}}/validate{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#attached "Aggregate" this}}{{namePascalCase}}/{id}")
-    public ResponseEntity<String> {{nameCamelCase}}StockCheck(@PathVariable(value = "{{keyFieldDescriptor.nameCamelCase}}") {{keyFieldDescriptor.className}} {{keyFieldDescriptor.nameCamelCase}}) {
     
-        String {{nameCamelCase}}Url = apiUrl + "/{{namePlural}}/" + {{keyFieldDescriptor.nameCamelCase}};
+    {{#attached "Event" this}}
+    {{#outgoingRelations}}
+    {{#target}}
+    @GetMapping("/{{../../../nameCamelCase}}/validate{{#attached "Aggregate" this}}{{namePascalCase}}/{id}")
+    public ResponseEntity<String> {{nameCamelCase}}StockCheck(@PathVariable(value = "{{keyFieldDescriptor.nameCamelCase}}") {{../../../keyFieldDescriptor.className}} {{../../../keyFieldDescriptor.nameCamelCase}}) {
+    
+        String {{../../../nameCamelCase}}Url = apiUrl + "/{{../../../namePlural}}/" + {{../../../keyFieldDescriptor.nameCamelCase}};
     
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(null, headers);
     
-        ResponseEntity<String> {{nameCamelCase}}Entity = restTemplate.exchange({{nameCamelCase}}Url, HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> {{../../../nameCamelCase}}Entity = restTemplate.exchange({{../../../nameCamelCase}}Url, HttpMethod.GET, entity, String.class);
     
-        return {{nameCamelCase}}Entity;
+        return {{../../../nameCamelCase}}Entity;
     }
     {{/attached}}
     {{/target}}
@@ -55,7 +58,7 @@ public class {{namePascalCase}}Controller {
     {{#attached "Command" this}}
     {{#outgoingRelations}}
     {{#target}}
-    {{#checkReadModel queryParameters}}
+    {{#if queryParameters}}
     @GetMapping("/{{../../../nameCamelCase}}/validate{{aggregate.namePascalCase}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}")
     public ResponseEntity<String> {{aggregate.nameCamelCase}}StockCheck() {
         String {{aggregate.nameCamelCase}}Url = apiUrl + "/{{aggregate.namePlural}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}";
@@ -68,7 +71,7 @@ public class {{namePascalCase}}Controller {
 
         return {{aggregate.nameCamelCase}}Entity;
     }
-    {{/checkReadModel}}
+    {{/if}}
     {{/target}}
     {{/outgoingRelations}}
     {{/attached}}
@@ -92,8 +95,5 @@ public class {{namePascalCase}}Controller {
         }else{
             return true;
         }
-    })
-    window.$HandleBars.registerHelper('checkReadModel', function (queryParameters) {
-        if(!queryParameters)return;
     })
 </function>
