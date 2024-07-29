@@ -28,7 +28,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#then}}
             {{#each value}}
-            jsonPath('$[0].{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../aggregate}}{{/setExampleType}}())
+            jsonPath('$[0].{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../queryParameters}}{{/setExampleType}}())
             {{/each}}
             {{/then}}
             {{/examples}}
@@ -44,11 +44,11 @@ org.springframework.cloud.contract.spec.Contract.make {
         if(examples) return false;
     })
 
-    window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregate) {
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, parameters) {
         var type = 'String'
-        for(var i = 0; i < aggregate.aggregateRoot.fieldDescriptors.length; i++){
-            if(aggregate.aggregateRoot.fieldDescriptors[i].name == key){
-                type = aggregate.aggregateRoot.fieldDescriptors[i].className
+        for(var i = 0; i < parameters.length; i++){
+            if(parameters[i].name == key){
+                type = parameters[i].className
             }
         }
         

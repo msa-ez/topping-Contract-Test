@@ -89,7 +89,18 @@ public class {{namePascalCase}}Controller {
     {{/if}}
     {{/attached}}
 
-    
+    {{#attached "Command" this}}
+    {{#outgoingRelations}}
+    {{#target}}
+    @GetMapping("/{{aggregate.namePlural}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}")
+    public ResponseEntity<List<{{aggregate.namePascalCase}}>> {{aggregate.nameCamelCase}}StockCheck() {
+        Iterable<{{aggregate.namePascalCase}}> {{aggregate.nameCamelCase}}Iterable = {{aggregate.nameCamelCase}}Repository.findAll();
+        List<{{aggregate.namePascalCase}}> {{aggregate.namePlural}} = StreamSupport.stream({{aggregate.nameCamelCase}}Iterable.spliterator(), false).collect(Collectors.toList());
+        return ResponseEntity.ok().body({{aggregate.namePlural}});
+    }
+    {{/target}}
+    {{/outgoingRelations}}
+    {{/attached}}
 }
 <function>
     window.$HandleBars.registerHelper('checkExample', function (example, type) {

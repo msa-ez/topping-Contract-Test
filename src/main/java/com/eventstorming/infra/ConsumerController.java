@@ -52,6 +52,25 @@ public class {{namePascalCase}}Controller {
     {{/outgoingRelations}}
     {{/attached}}
 
+    {{#attached "Command" this}}
+    {{#outgoingRelations}}
+    {{#target}}
+    @GetMapping("/{{../../../nameCamelCase}}/validate{{aggregate.namePascalCase}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}")
+    public ResponseEntity<String> {{aggregate.nameCamelCase}}StockCheck() {
+        String {{aggregate.nameCamelCase}}Url = apiUrl + "/{{aggregate.namePlural}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(null, headers);
+
+        ResponseEntity<String> {{aggregate.nameCamelCase}}Entity = restTemplate.exchange({{aggregate.nameCamelCase}}Url, HttpMethod.GET, entity, String.class);
+
+        return {{aggregate.nameCamelCase}}Entity;
+    }
+    {{/target}}
+    {{/outgoingRelations}}
+    {{/attached}}
+
 }
 <function>
     window.$HandleBars.registerHelper('checkExample', function (example, type) {
