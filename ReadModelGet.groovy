@@ -8,7 +8,7 @@ package contracts.rest
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method 'GET'
-        url ('/{{aggregate.namePlural}}/search/findBy{{#if queryOption.useDefaultUri}}findBy{{namePascalCase}}{{else}}{{#changeUpper queryOption.apiPath}}{{/changeUpper}}{{/if}}')
+        url ('/{{aggregate.namePlural}}/search/findBy{{#if queryOption.useDefaultUri}}findBy{{namePascalCase}}{{else}}{{#changeUpper queryOption.apiPath}}{{/changeUpper}}{{/if}}/1')
         headers {
             contentType(applicationJson())
         }
@@ -28,7 +28,7 @@ org.springframework.cloud.contract.spec.Contract.make {
             {{#examples}}
             {{#then}}
             {{#each value}}
-            jsonPath('$[0].{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../queryParameters}}{{/setExampleType}}())
+            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../queryParameters}}{{/setExampleType}}())
             {{/each}}
             {{/then}}
             {{/examples}}

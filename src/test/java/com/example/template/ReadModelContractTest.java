@@ -41,7 +41,7 @@ public class {{aggregate.namePascalCase}}ContractTest {
     public void get{{aggregate.namePascalCase}}_stub_test() throws Exception {
 
         MvcResult result = mockMvc
-        .perform(MockMvcRequestBuilders.get("/{{#incomingRelations}}{{#source}}{{aggregate.nameCamelCase}}{{/source}}{{/incomingRelations}}/validate{{aggregate.namePascalCase}}/search/{{#if useDefaultUri}}findBy{{namePascalCase}}{{else}}findBy{{#changeUpper queryOption.apiPath}}{{/changeUpper}}{{/if}}")
+        .perform(MockMvcRequestBuilders.get("/{{aggregate.namePlural}}/search/findBy{{#if queryOption.useDefaultUri}}findBy{{namePascalCase}}{{else}}{{#changeUpper queryOption.apiPath}}{{/changeUpper}}{{/if}}/1")
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
@@ -53,7 +53,7 @@ public class {{aggregate.namePascalCase}}ContractTest {
         {{#examples}}
         {{#then}}
         {{#each value}}
-        Assertions.assertThat(parsedJson.read("$[0].{{camelCase @key}}", {{#setExampleType @key this  ../../../queryParameters}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../queryParameters}}{{/setAssertion}}
+        Assertions.assertThat(parsedJson.read("$.{{camelCase @key}}", {{#setExampleType @key this  ../../../queryParameters}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../queryParameters}}{{/setAssertion}}
         {{/each}}
         {{/then}}
         {{/examples}}

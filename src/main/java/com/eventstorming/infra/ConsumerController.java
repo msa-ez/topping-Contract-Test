@@ -118,7 +118,6 @@ public class {{namePascalCase}}Controller {
     {{/outgoingRelations}}
     {{/attached}}
     
-    // consumer
     {{#attached "Event" this}}
     {{#outgoingRelations}}
     {{#target}}
@@ -140,33 +139,10 @@ public class {{namePascalCase}}Controller {
     {{/outgoingRelations}}
     {{/attached}}
 
-    
-    {{#attached "Command" this}}
-    {{#outgoingRelations}}
-    {{#target}}
-    {{#if queryParameters}}
-    @GetMapping("/{{../../../nameCamelCase}}/validate{{aggregate.namePascalCase}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}")
-    public ResponseEntity<String> {{aggregate.nameCamelCase}}StockCheck() {
-        String {{aggregate.nameCamelCase}}Url = apiUrl + "/{{aggregate.namePlural}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}";
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(null, headers);
-        
-        ResponseEntity<String> {{aggregate.nameCamelCase}}Entity = restTemplate.exchange({{aggregate.nameCamelCase}}Url, HttpMethod.GET, entity, String.class);
-        
-        return {{aggregate.nameCamelCase}}Entity;
-    }
-    {{/if}}
-    {{/target}}
-    {{/outgoingRelations}}
-    {{/attached}}
-    
-    // Provider
     {{#attached "View" this}}
     {{#if queryOption.useDefaultUri}}
     {{else}}
-    @GetMapping(path = "/{{../namePlural}}/search/findBy{{#changeUpper queryOption.apiPath}}{{/changeUpper}}")
+    @GetMapping(path = "/{{../namePlural}}/search/findBy{{#changeUpper queryOption.apiPath}}{{/changeUpper}}/{{#queryParameters}}{{#if isKey}}{{nameCamelCase}}{{/if}}{{/queryParameters}}")
     public {{../namePascalCase}} {{queryOption.apiPath}}{{#queryParameters}}{{#if isKey}}(@PathVariable("{{nameCamelCase}}"){{className}} {{nameCamelCase}}{{/if}}{{/queryParameters}}, {{namePascalCase}}Query {{nameCamelCase}}Query) {
         return {{../nameCamelCase}}Repository.{{queryOption.apiPath}}({{#queryParameters}}{{#if isKey}}{{nameCamelCase}}, {{else}}{{../nameCamelCase}}Query.get{{namePascalCase}}(){{#unless @last}},{{/unless}}{{/if}}{{/queryParameters}});
     }
