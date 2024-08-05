@@ -59,6 +59,8 @@ public class {{aggregate.namePascalCase}}ContractTest {
             entity, 
             String.class
         );
+        String responseString = response.getBody();
+        DocumentContext parsedJson = JsonPath.parse(responseString);
         // and:
         // examples
         {{#examples}}

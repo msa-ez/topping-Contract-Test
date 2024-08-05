@@ -26,6 +26,7 @@ import javax.transaction.Transactional;
 
 import {{options.package}}.domain.{{namePascalCase}};
 import {{options.package}}.domain.{{namePascalCase}}Repository;
+import {{options.package}}.domain.{{namePascalCase}}Command;
 {{#attached "View" this}}
 {{#if queryOption.useDefaultUri}}
 {{else}}
@@ -142,9 +143,9 @@ public class {{namePascalCase}}Controller {
     {{#attached "View" this}}
     {{#if queryOption.useDefaultUri}}
     {{else}}
-    @GetMapping(path = "/{{../namePlural}}/search/findBy{{#changeUpper queryOption.apiPath}}{{/changeUpper}}/{{#queryParameters}}{{#if isKey}}{{nameCamelCase}}{{/if}}{{/queryParameters}}")
+    @GetMapping(path = "/{{../namePlural}}/search/findBy{{#changeUpper queryOption.apiPath}}{{/changeUpper}}/{{#queryParameters}}{{#if isKey}}{{#wrap nameCamelCase}}{{/wrap}}{{/if}}{{/queryParameters}}")
     public {{../namePascalCase}} {{queryOption.apiPath}}{{#queryParameters}}{{#if isKey}}(@PathVariable("{{nameCamelCase}}"){{className}} {{nameCamelCase}}{{/if}}{{/queryParameters}}, {{namePascalCase}}Query {{nameCamelCase}}Query) {
-        return {{../nameCamelCase}}Repository.{{queryOption.apiPath}}({{#queryParameters}}{{#if isKey}}{{nameCamelCase}}, {{else}}{{../nameCamelCase}}Query.get{{namePascalCase}}(){{#unless @last}},{{/unless}}{{/if}}{{/queryParameters}});
+        return {{../nameCamelCase}}Repository.findBy{{queryOption.apiPath}}({{#queryParameters}}{{#if isKey}}{{nameCamelCase}}, {{else}}{{../nameCamelCase}}Query.get{{namePascalCase}}(){{#unless @last}},{{/unless}}{{/if}}{{/queryParameters}});
     }
     {{/if}}
     {{/attached}}
@@ -181,5 +182,8 @@ public class {{namePascalCase}}Controller {
         }else{
             return true;
         }
+    })
+    window.$HandleBars.registerHelper('wrap', function (name) {
+        return "{" + name + "}";
     })
 </function>
