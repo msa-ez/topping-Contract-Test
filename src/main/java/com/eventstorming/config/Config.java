@@ -1,7 +1,6 @@
-forEach: Aggregate
-except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
+path: {{name}}/{{{options.packagePath}}}/config
 ---
-package {{options.package}}.config;
+package {{options.package}}.config
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
@@ -21,12 +20,3 @@ public class Config {
 		return restTemplate;
 	}
 }
-<function>
-	window.$HandleBars.registerHelper('checkTarget', function (target) {
-		if(target.type == 'Command' && target.examples){
-			return false;
-		}else{
-			return true;
-		}
-	})
-</function>
