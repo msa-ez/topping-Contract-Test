@@ -52,7 +52,7 @@ logging:
 
 api:
   url:
-    {{#if relationCommandInfo}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{else}}{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{{nameCamelCase}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{/attached}}{{/if}}: http://localhost:{{boundedContext.portGenerated}}
+    {{#if relationCommandInfo}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{else}}{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{{nameCamelCase}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{/attached}}{{/if}}: http://localhost:{{portGenerated}}
 
 server:
   port: {{portGenerated}}
