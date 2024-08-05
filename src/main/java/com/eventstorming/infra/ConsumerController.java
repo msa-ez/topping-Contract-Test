@@ -4,17 +4,34 @@ path: {{boundedContext.name}}/{{options.packagePath}}/infra
 ---
 package {{options.package}}.infra;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
+
+import {{options.package}}.domain.{{namePascalCase}};
+import {{options.package}}.domain.{{namePascalCase}}Repository;
+{{#attached "View" this}}
+{{#if queryOption.useDefaultUri}}
+{{else}}
+import {{options.package}}.domain.{{namePascalCase}}Query;
+{{/if}}
+{{/attached}}
 
 @RestController
 public class {{namePascalCase}}Controller {
@@ -74,13 +91,14 @@ public class {{namePascalCase}}Controller {
     {{/checkMethod}}
 
     {{^checkMethod controllerInfo.method}}
-    @RequestMapping(value = "{{../namePlural}}{{controllerInfo.apiPath}}",
+    @RequestMapping(value = "/{{../namePlural}}{{#if controllerInfo.apiPath}}{{controllerInfo.apiPath}}{{/if}}",
             method = RequestMethod.{{controllerInfo.method}},
             produces = "application/json;charset=UTF-8")
     public {{../namePascalCase}} {{nameCamelCase}}(HttpServletRequest request, HttpServletResponse response, 
-        {{#if fieldDescriptors}}@RequestBody {{aggregate.namePascalCase}} {{aggregate.nameCamelCase}}{{/if}}) throws Exception {
+        {{#if fieldDescriptors}}@RequestBody {{namePascalCase}}Command {{nameCamelCase}}Command{{/if}}) throws Exception {
             System.out.println("##### /{{aggregate.nameCamelCase}}/{{nameCamelCase}}  called #####");
-            {{aggregate.nameCamelCase}}.{{nameCamelCase}}({{#if fieldDescriptors}}{{nameCamelCase}}command{{/if}});
+            {{aggregate.namePascalCase}} {{aggregate.nameCamelCase}} = new {{aggregate.namePascalCase}}();
+            {{aggregate.nameCamelCase}}.{{nameCamelCase}}({{#if fieldDescriptors}}{{nameCamelCase}}Command{{/if}});
             {{aggregate.nameCamelCase}}Repository.save({{aggregate.nameCamelCase}});
             return {{aggregate.nameCamelCase}};
     }
