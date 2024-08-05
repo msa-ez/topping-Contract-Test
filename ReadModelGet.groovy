@@ -8,7 +8,7 @@ package contracts.rest
 org.springframework.cloud.contract.spec.Contract.make {
     request {
         method 'GET'
-        url ('/{{aggregate.namePlural}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}')
+        url ('/{{aggregate.namePlural}}/search/findBy{{#if queryOption.useDefaultUri}}findBy{{namePascalCase}}{{else}}{{#changeUpper queryOption.apiPath}}{{/changeUpper}}{{/if}}')
         headers {
             contentType(applicationJson())
         }
@@ -54,4 +54,7 @@ org.springframework.cloud.contract.spec.Contract.make {
         
         return type;
     })
+    window.$HandleBars.registerHelper('changeUpper', function (name) {
+        return name.charAt(0).toUpperCase() + name.slice(1);
+    });
 </function>
