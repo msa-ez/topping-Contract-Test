@@ -13,6 +13,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,17 +40,25 @@ public class {{aggregate.namePascalCase}}ContractTest {
    @Autowired
    MockMvc mockMvc;
 
+   @Autowired
+    RestTemplate restTemplate;
+
     @Test
     public void get{{aggregate.namePascalCase}}_stub_test() throws Exception {
 
-        MvcResult result = mockMvc
-        .perform(MockMvcRequestBuilders.get("/{{aggregate.namePlural}}/search/findBy{{#if queryOption.useDefaultUri}}findBy{{namePascalCase}}{{else}}{{#changeUpper queryOption.apiPath}}{{/changeUpper}}{{/if}}/1")
-                .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andReturn();
+        String url = "http://localhost:8090/{{aggregate.namePlural}}/search/findBy{{#if queryOption.useDefaultUri}}findBy{{namePascalCase}}{{else}}{{#changeUpper queryOption.apiPath}}{{/changeUpper}}{{/if}}/1";
 
-        String responseString = result.getResponse().getContentAsString();
-        DocumentContext parsedJson = JsonPath.parse(responseString);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(
+            url, 
+            HttpMethod.GET, 
+            entity, 
+            String.class
+        );
         // and:
         // examples
         {{#examples}}
