@@ -146,12 +146,11 @@ public class {{namePascalCase}}Controller {
     
     // Provider
     {{#attached "View" this}}
-    {{#if incomingRelations}}
-    @GetMapping("/{{aggregate.namePlural}}/search/findBy{{#if useDefaultUri}}{{queryOption.apiPath}}{{else}}{{namePascalCase}}{{/if}}")
-    public ResponseEntity<List<{{aggregate.namePascalCase}}>> {{aggregate.nameCamelCase}}StockCheck() {
-        Iterable<{{aggregate.namePascalCase}}> {{aggregate.nameCamelCase}}Iterable = {{aggregate.nameCamelCase}}Repository.findAll();
-        List<{{aggregate.namePascalCase}}> {{aggregate.namePlural}} = StreamSupport.stream({{aggregate.nameCamelCase}}Iterable.spliterator(), false).collect(Collectors.toList());
-        return ResponseEntity.ok().body({{aggregate.namePlural}});
+    {{#if queryOption.useDefaultUri}}
+    {{else}}
+    @GetMapping(path = "/{{../namePlural}}/search/findBy{{#changeUpper queryOption.apiPath}}{{/changeUpper}}")
+    public {{../namePascalCase}} {{queryOption.apiPath}}{{#queryParameters}}{{#if isKey}}(@PathVariable("{{nameCamelCase}}"){{className}} {{nameCamelCase}}{{/if}}{{/queryParameters}}, {{namePascalCase}}Query {{nameCamelCase}}Query) {
+        return {{../nameCamelCase}}Repository.{{queryOption.apiPath}}({{#queryParameters}}{{#if isKey}}{{nameCamelCase}}, {{else}}{{../nameCamelCase}}Query.get{{namePascalCase}}(){{#unless @last}},{{/unless}}{{/if}}{{/queryParameters}});
     }
     {{/if}}
     {{/attached}}
