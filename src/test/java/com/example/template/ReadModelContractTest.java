@@ -41,7 +41,7 @@ public class {{aggregate.namePascalCase}}ContractTest {
     public void get{{aggregate.namePascalCase}}_stub_test() throws Exception {
 
         MvcResult result = mockMvc
-        .perform(MockMvcRequestBuilders.get("/{{#incomingRelations}}{{#source}}{{aggregate.nameCamelCase}}{{/source}}{{/incomingRelations}}/validate{{aggregate.namePascalCase}}/search/findBy{{#if useDefaultUri}}findBy{{namePascalCase}}{{else}}findBy{{#changeUpper queryOption.apiPath}}{{/changeUpper}}{{/if}}")
+        .perform(MockMvcRequestBuilders.get("/{{#incomingRelations}}{{#source}}{{aggregate.nameCamelCase}}{{/source}}{{/incomingRelations}}/validate{{aggregate.namePascalCase}}/search/{{#if useDefaultUri}}findBy{{namePascalCase}}{{else}}findBy{{#changeUpper queryOption.apiPath}}{{/changeUpper}}{{/if}}")
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andReturn();
