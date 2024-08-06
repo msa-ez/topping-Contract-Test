@@ -46,9 +46,9 @@ public class TestDataConfig {
 
 <function>
     window.$HandleBars.registerHelper('checkExample', function (example, type) {
-        if(example && type != 'Policy'){
+        if(example && type == "Command"){
             return false;
-        }else if(!example || type == "Policy"){
+        }else{
             return true;
         }
     });

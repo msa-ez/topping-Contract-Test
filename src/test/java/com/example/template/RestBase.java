@@ -41,10 +41,10 @@ public class RestBase {
 }
 <function>
     window.$HandleBars.registerHelper('checkExample', function (example, type) {
-        if(example && type != 'Policy'){
+        if(example && type == "Command"){
             return false;
-        }else if(!example || type == "Policy"){
-                return true;
+        }else{
+            return true;
         }
     });
 </function>
