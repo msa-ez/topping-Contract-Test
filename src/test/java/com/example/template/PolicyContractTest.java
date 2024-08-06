@@ -52,17 +52,10 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
         {{#examples}}
         {{#when}}
         {{#each value}}
-        assertThat(parsedJson.read("$.{{camelCase @key}}", {{#setExampleType @key this  ../../../aggregateList}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../aggregate}}{{/setAssertion}}
+        assertThat(parsedJson.read("$.{{#camelCase @key}}{{/camelCase}}", {{#setExampleType @key this  ../../../aggregateList}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../aggregateList}}{{/setAssertion}}
         {{/each}}
         {{/when}}
         {{/examples}}
-        // Verify received message
-        assertThat(parsedJson.read("$.eventType", String.class)).isEqualTo("OrderPlaced");
-        assertThat(parsedJson.read("$.id", Long.class)).isGreaterThan(0L);
-        assertThat(parsedJson.read("$.customerId", String.class)).matches("[\\S\\s]+");
-        assertThat(parsedJson.read("$.productId", String.class)).matches("[\\S\\s]+");
-        assertThat(parsedJson.read("$.productName", String.class)).matches("[\\S\\s]+");
-        assertThat(parsedJson.read("$.qty", Integer.class)).isGreaterThan(0);
 
     }
 }
