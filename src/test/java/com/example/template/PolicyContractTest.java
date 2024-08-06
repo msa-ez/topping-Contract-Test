@@ -67,7 +67,7 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
     window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList) {
         var type = 'String'
         for(var i = 0; i < aggregateList.length; i++){
-            for(var j = 0 j < aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
+            for(var j = 0; j < aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
                 if(aggregateList[i].aggregateRoot.fieldDescriptors[j].name == key){
                     type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
                 }
@@ -80,7 +80,7 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
         var type = 'String'
         
         for(var i = 0; i < aggregateList.length; i++){
-            for(var j = 0 j < aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
+            for(var j = 0; j < aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
                 if(aggregateList[i].aggregateRoot.fieldDescriptors[j].name == key){
                     type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
                 }
