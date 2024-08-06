@@ -64,7 +64,7 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
         if(example) return false;
     });
 
-    window.$HandleBars.registerHelper('setExampleType', function (key, value, incomingRelations.source) {
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, source) {
         var type = 'String'
         for(var i = 0; i < aggregateList.length; i++){
             for(var j = 0; j < aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
@@ -76,7 +76,7 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
         return type;
     });
 
-    window.$HandleBars.registerHelper('setAssertion', function (key, value, incomingRelations.source) {
+    window.$HandleBars.registerHelper('setAssertion', function (key, value, source) {
         var type = 'String'
         
         for(var i = 0; i < aggregateList.length; i++){
