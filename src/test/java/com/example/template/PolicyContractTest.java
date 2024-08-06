@@ -52,7 +52,7 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
         {{#examples}}
         {{#when}}
         {{#each value}}
-        assertThat(parsedJson.read("$.{{#camelCase @key}}{{/camelCase}}", {{#setExampleType @key this  ../../../incomingRelations.source}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../incomingRelations.source}}{{/setAssertion}}
+        assertThat(parsedJson.read("$.{{#camelCase @key}}{{/camelCase}}", {{#setExampleType @key this  ../../../incomingRelations}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../incomingRelations}}{{/setAssertion}}
         {{/each}}
         {{/when}}
         {{/examples}}
@@ -60,6 +60,7 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
     }
 }
 <function>
+
     window.$HandleBars.registerHelper('checkExample', function (example) {
         if(example) return false;
     });
