@@ -52,7 +52,7 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
         {{#examples}}
         {{#when}}
         {{#each value}}
-        assertThat(parsedJson.read("$.{{#camelCase @key}}{{/camelCase}}", {{#setExampleType @key this  ../../../aggregateList}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../aggregateList}}{{/setAssertion}}
+        assertThat(parsedJson.read("$.{{#camelCase @key}}{{/camelCase}}", {{#setExampleType @key this  ../../../incomingRelations.source}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../incomingRelations.source}}{{/setAssertion}}
         {{/each}}
         {{/when}}
         {{/examples}}
@@ -64,7 +64,7 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
         if(example) return false;
     });
 
-    window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList) {
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, incomingRelations.source) {
         var type = 'String'
         for(var i = 0; i < aggregateList.length; i++){
             for(var j = 0; j < aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
@@ -76,7 +76,7 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
         return type;
     });
 
-    window.$HandleBars.registerHelper('setAssertion', function (key, value, aggregateList) {
+    window.$HandleBars.registerHelper('setAssertion', function (key, value, incomingRelations.source) {
         var type = 'String'
         
         for(var i = 0; i < aggregateList.length; i++){
