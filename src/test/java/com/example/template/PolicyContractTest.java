@@ -49,6 +49,13 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
 
         DocumentContext parsedJson = JsonPath.parse(received.getPayload());
 
+        {{#examples}}
+        {{#when}}
+        {{#each value}}
+        assertThat(parsedJson.read("$.{{camelCase @key}}", {{#setExampleType @key this  ../../../aggregateList}}{{/setExampleType}}.class)).{{#setAssertion @key this  ../../../aggregate}}{{/setAssertion}}
+        {{/each}}
+        {{/when}}
+        {{/examples}}
         // Verify received message
         assertThat(parsedJson.read("$.eventType", String.class)).isEqualTo("OrderPlaced");
         assertThat(parsedJson.read("$.id", Long.class)).isGreaterThan(0L);
@@ -62,6 +69,43 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
 <function>
     window.$HandleBars.registerHelper('checkExample', function (example) {
         if(example) return false;
-    })
+    });
+
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, aggregateList) {
+        var type = 'String'
+        for(var i = 0; i < aggregateList.length; i++){
+            for(var j = 0 j < aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
+                if(aggregateList[i].aggregateRoot.fieldDescriptors[j].name == key){
+                    type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
+                }
+            }
+        }
+        return type;
+    });
+
+    window.$HandleBars.registerHelper('setAssertion', function (key, value, aggregate) {
+        var type = 'String'
+        
+        for(var i = 0; i < aggregateList.length; i++){
+            for(var j = 0 j < aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
+                if(aggregateList[i].aggregateRoot.fieldDescriptors[j].name == key){
+                    type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
+                }
+            }
+        }
+
+        switch (type) {
+            case 'String':
+                return 'matches("[\\S\\s]+");'
+            case 'Long':
+                return 'isGreaterThan(0L);'
+            case 'Integer':
+                return 'isGreaterThan(0);'
+            case 'Boolean':
+            return 'isTrue();'
+            default:
+            throw new Error(`Unsupported type: ${type}`);
+        }
+    });
 </function>
 
