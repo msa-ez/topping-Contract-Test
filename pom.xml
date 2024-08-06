@@ -36,6 +36,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Load Balancer for running Test -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
