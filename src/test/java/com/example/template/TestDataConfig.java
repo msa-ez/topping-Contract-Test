@@ -48,10 +48,10 @@ public class TestDataConfig {
     window.$HandleBars.registerHelper('checkExample', function (example, type) {
         if(example && type != 'Policy'){
             return false;
-        }else{
+        }else if(!example || type == "Policy"){
             return true;
         }
-    })
+    });
 
     window.$HandleBars.registerHelper('compareAndSetType', function (key, value, field) {
         var type = 'String'
@@ -72,5 +72,5 @@ public class TestDataConfig {
             default:
             throw new Error(`Unsupported type: ${type}`);
         }
-    })
+    });
 </function>
