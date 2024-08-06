@@ -76,7 +76,7 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
         return type;
     });
 
-    window.$HandleBars.registerHelper('setAssertion', function (key, value, aggregate) {
+    window.$HandleBars.registerHelper('setAssertion', function (key, value, aggregateList) {
         var type = 'String'
         
         for(var i = 0; i < aggregateList.length; i++){
