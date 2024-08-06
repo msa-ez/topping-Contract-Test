@@ -1,4 +1,4 @@
-forEach: ReadModel
+forEach: View
 path: {{boundedContext.name}}/src/test/java/com/example/template
 fileName: RestBase.java
 except: {{#incomingRelations}}{{#checkIncoming source}}{{/checkIncoming}}{{/incomingRelations}}
