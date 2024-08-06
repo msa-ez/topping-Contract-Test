@@ -1,6 +1,6 @@
-forEach: Aggregate
+forEach: Command
 fileName: RestBase.java
-except: {{#if commands}}{{#attached "Command" this}}{{#checkExample examples type}}{{/checkExample}}{{/attached}}{{else}}{{#attached "View" this}}{{#checkExample examples type}}{{/checkExample}}{{/attached}}{{/if}}
+except: {{#checkExample examples type}}{{/checkExample}}
 ---
 package com.example.template;
 
@@ -16,23 +16,23 @@ import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import {{options.package}}.infra.{{namePascalCase}}Controller;
-import {{options.package}}.{{namePascalCase}}Application;
+import {{options.package}}.infra.{{aggregate.namePascalCase}}Controller;
+import {{options.package}}.{{aggregate.namePascalCase}}Application;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {{namePascalCase}}Application.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = {{aggregate.namePascalCase}}Application.class)
 @AutoConfigureMockMvc
 @Import(TestDataConfig.class)
 public class RestBase {
 
     @Autowired
-    private {{namePascalCase}}Controller {{nameCamelCase}}Controller;
+    private {{aggregate.namePascalCase}}Controller {{aggregate.nameCamelCase}}Controller;
 
     @Before
     public void setup() {
         StandaloneMockMvcBuilder standaloneMockMvcBuilder = MockMvcBuilders.standaloneSetup(
-            {{nameCamelCase}}Controller
+            {{aggregate.nameCamelCase}}Controller
         ).addFilters(new CharacterEncodingFilter("UTF-8", true)); 
 
         RestAssuredMockMvc.standaloneSetup(standaloneMockMvcBuilder);

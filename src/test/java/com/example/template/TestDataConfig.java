@@ -1,25 +1,23 @@
-forEach: Aggregate
+forEach: Command
 path: {{boundedContext.name}}/src/test/java/com/example/template
-except: {{#if commands}}{{#attached "Command" this}}{{#checkExample examples type}}{{/checkExample}}{{/attached}}{{else}}{{#attached "View" this}}{{#checkExample examples type}}{{/checkExample}}{{/attached}}{{/if}}
+except: {{#checkExample examples type}}{{/checkExample}}
 ---
 package com.example.template;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
-import {{options.package}}.domain.{{namePascalCase}};
-import {{options.package}}.domain.{{namePascalCase}}Repository;
+import {{options.package}}.domain.{{aggregate.namePascalCase}};
+import {{options.package}}.domain.{{aggregate.namePascalCase}}Repository;
 
 
 @TestConfiguration
 public class TestDataConfig {
 
     @Bean
-    public CommandLineRunner initData({{namePascalCase}}Repository repository) {
+    public CommandLineRunner initData({{aggregate.namePascalCase}}Repository repository) {
         return args -> {
-            {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
-            {{#if commands}}
-            {{#attached "Command" this}}
+            {{aggregate.namePascalCase}} {{aggregate.nameCamelCase}} = new {{aggregate.namePascalCase}}();
             {{#examples}}
             {{#given}}
             {{#each value}}
@@ -27,19 +25,7 @@ public class TestDataConfig {
             {{/each}}
             {{/given}}
             {{/examples}}
-            {{/attached}}
-            {{else}}
-            {{#attached "View" this}}
-            {{#examples}}
-            {{#given}}
-            {{#each value}}
-            {{../../../aggregate.nameCamelCase}}.set{{pascalCase @key}}({{#compareAndSetType @key this ../../../aggregate.aggregateRoot.fieldDescriptors}}{{/compareAndSetType}});
-            {{/each}}
-            {{/given}}
-            {{/examples}}
-            {{/attached}}
-            {{/if}}
-            repository.save({{nameCamelCase}});
+            repository.save({{aggregate.nameCamelCase}});
         };
     }
 }
