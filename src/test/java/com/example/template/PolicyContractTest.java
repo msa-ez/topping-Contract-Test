@@ -65,29 +65,27 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
         if(example) return false;
     });
 
-    window.$HandleBars.registerHelper('setExampleType', function (key, value, source) {
+    window.$HandleBars.registerHelper('setExampleType', function (key, value, incoming) {
         var type = 'String'
-        for(var i = 0; i < aggregateList.length; i++){
-            for(var j = 0; j < aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
-                if(aggregateList[i].aggregateRoot.fieldDescriptors[j].name == key){
-                    type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
+        for(var i = 0; i < incoming.length; i++){
+            for(var j = 0; j < incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
+                if(incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].name == key){
+                    type = incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].className
                 }
             }
         }
         return type;
     });
 
-    window.$HandleBars.registerHelper('setAssertion', function (key, value, source) {
+    window.$HandleBars.registerHelper('setAssertion', function (key, value, incoming) {
         var type = 'String'
-        
-        for(var i = 0; i < aggregateList.length; i++){
-            for(var j = 0; j < aggregateList[i].aggregateRoot.fieldDescriptors.length; j++){
-                if(aggregateList[i].aggregateRoot.fieldDescriptors[j].name == key){
-                    type = aggregateList[i].aggregateRoot.fieldDescriptors[j].className
+        for(var i = 0; i < incoming.length; i++){
+            for(var j = 0; j < incoming[i].source.aggregate.aggregateRoot.fieldDescriptors.length; j++){
+                if(incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].name == key){
+                    type = incoming[i].source.aggregate.aggregateRoot.fieldDescriptors[j].className
                 }
             }
         }
-
         switch (type) {
             case 'String':
                 return 'matches("[\\S\\s]+");'
