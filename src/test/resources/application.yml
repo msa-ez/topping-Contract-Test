@@ -1,5 +1,5 @@
 fileName: application.yml
-except: {{#aggregates}}{{#checkCommand commands policyList}}{{/checkCommand}}{{/aggregates}}
+except: {{#aggregates}}{{#checkCommand events}}{{/checkCommand}}{{/aggregates}}
 ---
 server:
   port: 8080
@@ -36,15 +36,17 @@ api:
     {{#if relationCommandInfo}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{else}}{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{{nameCamelCase}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{/attached}}{{/if}}: "http://localhost:8090"
 
 <function>
-  window.$HandleBars.registerHelper('checkCommand', function (command, policy) {
-    if(command){
-      for(var i = 0; i < command.length; i++){
-        if(command[i].examples){
-          return false; 
-        }
+window.$HandleBars.registerHelper('checkCommand', function (events) {
+  if(events){
+    for(var i = 0 ; i < events.length; i++){
+      if(events[i].outgoingRelations){
+        return false;
+      } else{
+        return true;
       }
-    }else if(policy){
-      return true;
     }
-  })
+  } else{
+    return true;
+  }
+});
 </function>
