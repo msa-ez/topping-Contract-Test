@@ -40,9 +40,13 @@ window.$HandleBars.registerHelper('checkCommand', function (events) {
   if(events){
     for(var i = 0 ; i < events.length; i++){
       if(events[i].outgoingRelations){
-        return false;
-      } else{
-        return true;
+        for(var j = 0; j < events[i].outgoingRelations.length; j++){
+          if(events[i].outgoingRelations[j].target.type == "Command"){
+            return false;
+          } else{
+            return true;
+          }
+        }
       }
     }
   } else{
