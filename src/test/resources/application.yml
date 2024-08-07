@@ -1,5 +1,5 @@
 fileName: application.yml
-except: {{#aggregates}}{{#checkCommand commands policyList}}{{/aggregates}}
+except: {{#aggregates}}{{#checkCommand commands policyList}}{{/checkCommand}}{{/aggregates}}
 ---
 server:
   port: 8080
