@@ -17,8 +17,8 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.MimeTypeUtils;
-import {{options.package}}.{{namePascalCase}}Application;
-import {{options.package}}.infra.{{namePascalCase}}Controller;
+import {{options.package}}.{{#incoming "Event" this}}{{aggregate.namePascalCase}}{{/incoming}}Application;
+import {{options.package}}.infra.{{#incoming "Event" this}}{{aggregate.namePascalCase}}{{/incoming}}Controller;
 import {{options.package}}.domain.*;
 
 import java.util.concurrent.TimeUnit;
@@ -45,6 +45,8 @@ public abstract class MessagingBase {
     }
 
     public void {{#incoming "Event" this}}{{nameCamelCase}}{{/incoming}}() {
+
+        String serializedJson = null;
         {{#incoming "Event" this}}
         {{#aggregate}}
         {{namePascalCase}} {{nameCamelCase}} = new {{namePascalCase}}();
