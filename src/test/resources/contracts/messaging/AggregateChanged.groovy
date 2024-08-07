@@ -31,7 +31,7 @@ Contract.make {
             {{#examples}}
             {{#when}}
             {{#each value}}
-            jsonPath('$.{{pascalCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../incomingRelations}}{{/setExampleType}}())
+            jsonPath('$.{{camelCase @key}}', byRegex(nonEmpty()).as{{#setExampleType @key this ../../../incomingRelations}}{{/setExampleType}}())
             {{/each}}
             {{/when}}
             {{/examples}}
