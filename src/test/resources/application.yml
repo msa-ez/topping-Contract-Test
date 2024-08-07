@@ -47,6 +47,8 @@ window.$HandleBars.registerHelper('checkCommand', function (events) {
             return true;
           }
         }
+      }else{
+        return true;
       }
     }
   } else{
