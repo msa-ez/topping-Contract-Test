@@ -120,6 +120,7 @@ public class {{namePascalCase}}Controller {
     {{#attached "Event" this}}
     {{#outgoingRelations}}
     {{#target}}
+    {{#if aggregate}}
     @GetMapping("/{{../../../nameCamelCase}}/validate{{#attached "Aggregate" this}}{{namePascalCase}}/{id}")
     public ResponseEntity<String> {{nameCamelCase}}StockCheck(@PathVariable(value = "{{keyFieldDescriptor.nameCamelCase}}") {{../../../keyFieldDescriptor.className}} {{../../../keyFieldDescriptor.nameCamelCase}}) {
     
@@ -133,6 +134,7 @@ public class {{namePascalCase}}Controller {
     
         return {{../../../nameCamelCase}}Entity;
     }
+    {{/if}}
     {{/attached}}
     {{/target}}
     {{/outgoingRelations}}
