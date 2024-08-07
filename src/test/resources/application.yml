@@ -1,5 +1,5 @@
 fileName: application.yml
-except: {{#attached "Event" this}}{{#outgoingRelations}}{{#checkTarget target}}{{/checkTarget}}{{/outgoingRelations}}{{/attached}}
+except: {{#aggregates}}{{#checkCommand commands policyList}}{{/aggregates}}
 ---
 server:
   port: 8080
@@ -34,13 +34,17 @@ spring:
 api:
   url:
     {{#if relationCommandInfo}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{else}}{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{{nameCamelCase}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{/attached}}{{/if}}: "http://localhost:8090"
-  
+
 <function>
-  window.$HandleBars.registerHelper('checkTarget', function (target) {
-        if(target.type == 'Command' && target.examples){
-            return false;
-        }else{
-            return true;
+  window.$HandleBars.registerHelper('checkCommand', function (command, policy) {
+    if(command){
+      for(var i = 0; i < command.length; i++){
+        if(command[i].examples){
+          return false; 
         }
-    })
+      }
+    }else if(policy){
+      return true;
+    }
+  })
 </function>
