@@ -109,10 +109,12 @@ public class {{namePascalCase}}Controller {
     {{#attached "Event" this}}
     {{#outgoingRelations}}
     {{#target}}
+    {{#if aggregate}}
     {{#attached "Aggregate" this}}
     @Value("${api.url.{{#wrapRight nameCamelCase}}{{/wrapRight}}")
     private String apiUrl;
     {{/attached}}
+    {{/if}}
     {{/target}}
     {{/outgoingRelations}}
     {{/attached}}
