@@ -26,7 +26,12 @@ import javax.transaction.Transactional;
 
 import {{options.package}}.domain.{{namePascalCase}};
 import {{options.package}}.domain.{{namePascalCase}}Repository;
+{{#attached "Command" this}}
+{{#if isRestRepository}}
+{{else}}
 import {{options.package}}.domain.{{namePascalCase}}Command;
+{{/if}}
+{{/attached}}
 {{#attached "View" this}}
 {{#if queryOption.useDefaultUri}}
 {{else}}
