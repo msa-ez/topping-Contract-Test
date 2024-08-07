@@ -52,7 +52,7 @@ logging:
 
 api:
   url:
-    {{#if relationCommandInfo}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{else}}{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{{nameCamelCase}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{/attached}}{{/if}}: http://localhost:{{portGenerated}}
+    {{#if relationCommandInfo}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}: http://localhost:{{boundedContext.portGenerated}}{{else}}{{commandValue.aggregate.nameCamelCase}}: http://localhost:{{boundedContext.portGenerated}}{{/if}}{{/relationCommandInfo}}{{else}}{{#attached "Event" this}}{{#if outgoingRelations}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{{nameCamelCase}}: http://localhost:{{boundedContext.portGenerated}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{else}}{{nameCamelCase}}: http://localhost:{{boundedContext.portGenerated}}{{/if}}{{/attached}}{{/if}}
 
 server:
   port: {{portGenerated}}
@@ -87,4 +87,4 @@ spring:
           contentType: application/json
 api:
   url: 
-    {{#if relationCommandInfo}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{else}}{{#attached "Event" this}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{{nameCamelCase}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{/attached}}{{/if}}: http://localhost:8080
+    {{#if relationCommandInfo}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{else}}{{#attached "Event" this}}{{#if outgoingRelations}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{{nameCamelCase}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{else}}{{nameCamelCase}}{{/if}}{{/attached}}{{/if}}: http://localhost:8080
