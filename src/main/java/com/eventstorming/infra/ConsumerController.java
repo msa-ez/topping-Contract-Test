@@ -136,8 +136,8 @@ public class {{namePascalCase}}Controller {
     
         return {{../../../nameCamelCase}}Entity;
     }
-    {{/if}}
     {{/attached}}
+    {{/if}}
     {{/target}}
     {{/outgoingRelations}}
     {{/attached}}
