@@ -50,9 +50,11 @@ logging:
 #    org.hibernate.type: trace
 #    org.springframework.cloud: debug
 
+{{#checkCommandRelation relationCommandInfo}}
 api:
-  url:
-    {{#if relationCommandInfo}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}: http://localhost:{{boundedContext.portGenerated}}{{else}}{{commandValue.aggregate.nameCamelCase}}: http://localhost:{{boundedContext.portGenerated}}{{/if}}{{/relationCommandInfo}}{{else}}{{#attached "Event" this}}{{#if outgoingRelations}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{{nameCamelCase}}: http://localhost:{{boundedContext.portGenerated}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{else}}{{boundedContext.nameCamelCase}}: http://localhost:{{boundedContext.portGenerated}}{{/if}}{{/attached}}{{/if}}
+  url: 
+    {{#setApiUrl relationCommandInfo true}}{{/setApiUrl}}
+{{/checkCommandRelation}}
 
 server:
   port: {{portGenerated}}
@@ -88,3 +90,21 @@ spring:
 api:
   url: 
     {{#if relationCommandInfo}}{{#relationCommandInfo}}{{#if targetAggregate}}{{targetAggregate.aggregate.nameCamelCase}}{{else}}{{commandValue.aggregate.nameCamelCase}}{{/if}}{{/relationCommandInfo}}{{else}}{{#attached "Event" this}}{{#if outgoingRelations}}{{#outgoingRelations}}{{#target}}{{#aggregateList}}{{nameCamelCase}}{{/aggregateList}}{{/target}}{{/outgoingRelations}}{{else}}{{boundedContext.nameCamelCase}}{{/if}}{{/attached}}{{/if}}: http://localhost:8080
+
+<function>
+window.$HandleBars.registerHelper('setApiUrl', function (relationCommandInfo, isPortGen) {
+  var text = "";
+
+  relationCommandInfo.forEach(function(item) {
+    if(!text.includes(item.commandValue.boundedContext.name)) {
+      if(isPortGen) {
+        text += item.commandValue.boundedContext.name + ": localhost:" + item.commandValue.boundedContext.portGenerated + " \n    ";
+      } else {
+        text += item.commandValue.boundedContext.name + ": " +item.commandValue.boundedContext.name +":8080 \n    ";
+      }
+    }
+  })
+  
+  return text;
+});
+</function>
