@@ -5,7 +5,7 @@ except: {{#checkExample examples}}{{/checkExample}}
 ---
 package com.example.template;
 
-import {{options.package}}.{{#aggregateList}}{{namePascalCase}}{{/aggregateList}}Application;
+import {{options.package}}.{{{boundedContext.namePascalCase}}Application;
 import {{options.package}}.config.kafka.KafkaProcessor;
 
 import com.jayway.jsonpath.DocumentContext;

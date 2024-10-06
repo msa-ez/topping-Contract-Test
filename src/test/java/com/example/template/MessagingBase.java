@@ -1,6 +1,6 @@
 forEach: Policy
-except: {{#checkExample examples}}{{/checkExample}}
 path: {{#incoming "Event" this}}{{boundedContext.name}}{{/incoming}}/src/test/java/com/example/template
+except: {{#checkExample examples}}{{/checkExample}}
 ---
 package com.example.template;
 
