@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {{#aggregateList}}{{namePascalCase}}{{/aggregateList}}Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(classes = {{#boundedContext}}{{namePascalCase}}{{/boundedContext}}Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, 
                         ids = "{{options.package}}:{{#incomingRelations}}{{#source}}{{aggregate.nameCamelCase}}{{/source}}{{/incomingRelations}}:+:stubs")
 public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/incomingRelations}}ContractTest {
