@@ -86,9 +86,10 @@ public class {{#incomingRelations}}{{#source}}{{namePascalCase}}{{/source}}{{/in
                 }
             }
         }
+        var slash = "\\";
         switch (type) {
             case 'String':
-                return 'matches("[\\S\\s]+");'
+                return 'matches(' + '"[' + slash + slash + 'S' + slash +  slash + 's]+"' + ');'
             case 'Long':
                 return 'isGreaterThan(0L);'
             case 'Integer':
