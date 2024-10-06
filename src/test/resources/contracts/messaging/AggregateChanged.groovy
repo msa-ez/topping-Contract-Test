@@ -1,7 +1,7 @@
 forEach: Policy
 fileName: {{#incoming "Event" this}}{{namePascalCase}}{{/incoming}}.groovy
 except: {{#checkExample examples}}{{/checkExample}}
-path: {{#aggregateList}}{{nameCamelCase}}{{/aggregateList}}/src/test/resources/contracts/messaging
+path: {{boundedContext.name}}/src/test/resources/contracts/messaging
 ---
 package contracts.messaging
 import org.springframework.cloud.contract.spec.Contract
